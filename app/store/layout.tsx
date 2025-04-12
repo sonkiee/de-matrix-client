@@ -1,3 +1,4 @@
+import { StoreHeader } from "@/components/store/Header";
 import React from "react";
 
 export default function StoreLayout({
@@ -7,7 +8,9 @@ export default function StoreLayout({
 }) {
   return (
     <div className="bg-[#f1f1f2]">
-      <header>Header</header>
+      {/* Header */}
+      <StoreHeader />
+
       {children}
       <footer>Footer</footer>
     </div>
