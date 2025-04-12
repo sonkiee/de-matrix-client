@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Sun, Moon, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function LandingPage() {
   const [darkMode, setDarkMode] = useState(false);
@@ -114,8 +115,8 @@ export default function LandingPage() {
         <section className="text-center py-10 bg-gray-100 dark:bg-gray-800">
           <h2 className="text-2xl font-bold mb-6">Featured Brands</h2>
           <div className="flex justify-center gap-10">
-            <img src="/brands/apple.svg" alt="Apple" className="w-20" />
-            <img src="/brands/samsung.svg" alt="Samsung" className="w-20" />
+            <Image src="/brands/apple.svg" alt="Apple" className="w-20" />
+            <Image src="/brands/samsung.svg" alt="Samsung" className="w-20" />
           </div>
         </section>
 
@@ -178,10 +179,10 @@ export default function LandingPage() {
           <h2 className="text-2xl font-bold mb-4">Customer Testimonials</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <blockquote className="bg-gray-100 dark:bg-gray-800 p-4 rounded shadow italic">
-              "Excellent service! Fixed my phone quickly." – Ada
+              &quot;Excellent service! Fixed my phone quickly.&quot; – Ada
             </blockquote>
             <blockquote className="bg-gray-100 dark:bg-gray-800 p-4 rounded shadow italic">
-              "Swapping was a breeze, recommended!" – Tunde
+              &quot;Swapping was a breeze, recommended!&quot; – Tunde
             </blockquote>
           </div>
         </section>
