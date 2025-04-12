@@ -1,4 +1,4 @@
-export function Store() {
+export default function Store() {
   return (
     <div>
       <h1> Store Page </h1>
