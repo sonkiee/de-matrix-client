@@ -104,7 +104,11 @@ export default function LandingPage() {
             },
           ].map(({ icon, title, desc }) => (
             <div key={title} className="text-center">
-              <img src={icon} alt={title} className="w-16 h-16 mx-auto mb-4" />
+              <Image
+                src={icon}
+                alt={title}
+                className="w-16 h-16 mx-auto mb-4"
+              />
               <h3 className="font-semibold text-lg mb-2">{title}</h3>
               <p className="text-gray-600 dark:text-gray-400">{desc}</p>
             </div>
