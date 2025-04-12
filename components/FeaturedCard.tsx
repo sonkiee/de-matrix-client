@@ -1,6 +1,12 @@
 import { CheckCircle } from "lucide-react";
 
-export function FeatureCard({ title, description }) {
+export function FeatureCard({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
   return (
     <div className="text-center p-4">
       <div className="flex justify-center mb-4">
