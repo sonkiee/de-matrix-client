@@ -1,8 +1,3 @@
-import { Star } from "lucide-react";
-import { Card, CardContent } from "./ui/card";
-import Image from "next/image";
-import { Button } from "./ui/button";
-
 // Featured Brands & Products Section
 export function Featured() {
   return (

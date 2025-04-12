@@ -1,4 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { FeatureCard } from "./FeaturedCard";
 export function WhyChooseUs() {
   return (
