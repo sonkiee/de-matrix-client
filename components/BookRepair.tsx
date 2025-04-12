@@ -11,8 +11,8 @@ export function BookRepair() {
             Book a Repair Online
           </h2>
           <p className="text-center mb-8 text-gray-600">
-            Fill out the form below and we'll get back to you within 2 hours to
-            confirm your appointment.
+            Fill out the form below and we&apos;ll get back to you within 2
+            hours to confirm your appointment.
           </p>
           <form className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
