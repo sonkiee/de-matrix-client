@@ -50,7 +50,7 @@ export function ProductCard({ index, category = "" }) {
   const isLowStock = index % 7 === 0;
 
   return (
-    <Link href={`/product/${index}`} className="group">
+    <Link href={`/store/product/${index}`} className="group">
       <div className="relative overflow-hidden rounded-lg border bg-background">
         <div className="relative aspect-square overflow-hidden">
           {isNew && <Badge className="absolute left-2 top-2 z-10">New</Badge>}

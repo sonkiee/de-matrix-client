@@ -11,7 +11,7 @@ export function StoreCategories() {
             Shop by Category
           </h2>
           <Link
-            href="/categories"
+            href="/store/categories"
             className="flex items-center text-sm font-medium text-primary"
           >
             View All
@@ -20,7 +20,7 @@ export function StoreCategories() {
         </div>
         <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-5">
           <Link
-            href="/category/smartphones"
+            href="/store/category/smartphones"
             className="group relative overflow-hidden rounded-lg"
           >
             <Image
@@ -36,7 +36,7 @@ export function StoreCategories() {
             </div>
           </Link>
           <Link
-            href="/category/laptops"
+            href="/store/category/laptops"
             className="group relative overflow-hidden rounded-lg"
           >
             <Image
@@ -52,7 +52,7 @@ export function StoreCategories() {
             </div>
           </Link>
           <Link
-            href="/category/tablets"
+            href="/store/category/tablets"
             className="group relative overflow-hidden rounded-lg"
           >
             <Image
@@ -68,7 +68,7 @@ export function StoreCategories() {
             </div>
           </Link>
           <Link
-            href="/category/accessories"
+            href="/store/category/accessories"
             className="group relative overflow-hidden rounded-lg"
           >
             <Image
@@ -84,7 +84,7 @@ export function StoreCategories() {
             </div>
           </Link>
           <Link
-            href="/category/parts"
+            href="/store/category/parts"
             className="group relative overflow-hidden rounded-lg"
           >
             <Image

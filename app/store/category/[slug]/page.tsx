@@ -217,7 +217,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
                 {products.map((product, index) => (
                   <Link
                     key={index}
-                    href={`/product/${product.id}`}
+                    href={`/store/product/${product.id}`}
                     className="group"
                   >
                     <Card className="overflow-hidden">
