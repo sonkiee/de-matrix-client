@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
+import { AddToCartButton } from "./add-to-cart-bitton";
 
 export function BestSellers() {
   return (
@@ -29,9 +30,13 @@ export function BestSellers() {
               <CardContent className="p-4">
                 <h4 className="font-semibold">{product.name}</h4>
                 <p className="text-blue-600 font-bold">{product.price}</p>
-                <Button className="w-full mt-2 bg-orange-500 hover:bg-orange-600">
+                {/* <Button className="w-full mt-2 bg-orange-500 hover:bg-orange-600">
                   Add to Cart
-                </Button>
+                </Button> */}
+                <AddToCartButton
+                  product={product}
+                  className="w-full mt-2 bg-orange-500 hover:bg-orange-600"
+                />
               </CardContent>
             </Card>
           ))}
