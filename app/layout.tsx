@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { CartProvider } from "@/context/cart-context";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/context/auth-context";
+import { CartIcon } from "@/components/CartIcon";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +33,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>
-          <CartProvider>{children}</CartProvider>
+          <CartProvider>
+            {children}
+            <CartIcon />
+          </CartProvider>
         </AuthProvider>
 
         <Analytics />
