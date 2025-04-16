@@ -6,7 +6,7 @@ import { CartProvider } from "@/context/cart-context";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/context/auth-context";
 import { CartIcon } from "@/components/CartIcon";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryProvider } from "@/providers/react-query-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,8 +23,6 @@ export const metadata: Metadata = {
   description: "Shop the latest smartphones, laptops, and tech accessories",
 };
 
-const queryClient = new QueryClient();
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -35,14 +33,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            <ReactQueryProvider>
               {children}
               <CartIcon />
-            </CartProvider>
-          </AuthProvider>
-        </QueryClientProvider>
+            </ReactQueryProvider>
+          </CartProvider>
+        </AuthProvider>
 
         <Analytics />
         <Toaster />
