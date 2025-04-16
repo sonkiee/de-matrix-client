@@ -25,7 +25,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1">
-        <div className="container py-8">
+        <div className="container px-8 py-2">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-foreground">
               Home

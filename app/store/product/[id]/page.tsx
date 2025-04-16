@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { AddToCartButton } from "@/components/add-to-cart-bitton";
 
 export default function ProductPage({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -35,7 +36,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1">
-        <div className="container py-8">
+        <div className="container px-8 py-2">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-foreground">
               Home
@@ -213,10 +214,22 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               </div>
 
               <div className="flex flex-col gap-4 sm:flex-row">
-                <Button className="flex-1 gap-2" size="lg">
+                {/* <Button className="flex-1 gap-2" size="lg">
                   <ShoppingCart className="h-5 w-5" />
                   Add to Cart
-                </Button>
+                </Button> */}
+                <AddToCartButton
+                  product={{
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: `/placeholder.svg?height=96&width=96&text=${encodeURIComponent(
+                      product.name
+                    )}`,
+                  }}
+                  className="flex-1 gap-2"
+                  showIcon={true}
+                />
                 <Button variant="outline" size="lg" className="gap-2">
                   <Heart className="h-5 w-5" />
                   Wishlist

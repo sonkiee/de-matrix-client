@@ -20,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useCart } from "@/lib/cart-context";
+import { useCart } from "@/context/cart-context";
 
 export default function CheckoutPage() {
   const { cart } = useCart();

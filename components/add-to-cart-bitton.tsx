@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/cart-context";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 
 interface AddToCartButtonProps {
   product: {
@@ -26,7 +26,6 @@ export function AddToCartButton({
   showIcon = true,
 }: AddToCartButtonProps) {
   const { addToCart } = useCart();
-  const { toast } = useToast();
   const [isAdding, setIsAdding] = useState(false);
 
   const handleAddToCart = () => {
@@ -43,8 +42,7 @@ export function AddToCartButton({
         variant: product.variant,
       });
 
-      toast({
-        title: "Added to cart",
+      toast("Added to cart", {
         description: `${product.name} has been added to your cart.`,
       });
 
