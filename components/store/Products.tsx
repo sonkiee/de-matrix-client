@@ -1,7 +1,28 @@
+"use client";
+
+import { useAllProducts } from "@/queries/products";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { ProductCard } from "./ProductCard";
+import { useCategory } from "@/queries/category";
 
 export function StoreProducts() {
+  const { data, error, isLoading } = useAllProducts();
+  const { data: categories } = useCategory();
+  const category = categories?.data;
+
+  // .[0]?.name || "all";
+  console.log("Categories fetched", categories);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  console.log("Products fetched", data);
+  const products = data?.data;
+
+  const filterByCategory = (category: string) =>
+    category === "all"
+      ? products
+      : products.filter((product) => product.category === category);
   return (
     <section className="py-8 md:py-12">
       <div className="container">
@@ -11,38 +32,40 @@ export function StoreProducts() {
         <Tabs defaultValue="all" className="mt-6">
           <TabsList>
             <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="smartphones">Smartphones</TabsTrigger>
-            <TabsTrigger value="laptops">Laptops</TabsTrigger>
-            <TabsTrigger value="accessories">Accessories</TabsTrigger>
+            {categories?.data.map((category) => (
+              <TabsTrigger key={category._id} value={category._id}>
+                {category.name}
+              </TabsTrigger>
+            ))}
           </TabsList>
-          <TabsContent value="all" className="mt-6">
+          {/* <TabsContent value="all" className="mt-6">
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
               {[...Array(10)].map((_, i) => (
                 <ProductCard key={i} index={i} />
               ))}
             </div>
-          </TabsContent>
-          <TabsContent value="smartphones" className="mt-6">
+          </TabsContent> */}
+          <TabsContent value="all" className="mt-6">
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-              {[...Array(5)].map((_, i) => (
-                <ProductCard key={i} index={i} category="smartphone" />
+              {products?.map((product, index) => (
+                <ProductCard key={product.id} product={product} index={index} />
               ))}
             </div>
           </TabsContent>
-          <TabsContent value="laptops" className="mt-6">
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-              {[...Array(5)].map((_, i) => (
-                <ProductCard key={i} index={i} category="laptop" />
-              ))}
-            </div>
-          </TabsContent>
-          <TabsContent value="accessories" className="mt-6">
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-              {[...Array(5)].map((_, i) => (
-                <ProductCard key={i} index={i} category="accessory" />
-              ))}
-            </div>
-          </TabsContent>
+
+          {categories?.data.map((cat) => (
+            <TabsContent key={cat._id} value={cat._id} className="mt-6">
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                {filterByCategory(cat._id).map((product, index) => (
+                  <ProductCard
+                    key={product._id}
+                    product={product}
+                    index={index}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+          ))}
         </Tabs>
       </div>
     </section>

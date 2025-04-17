@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight, Filter, ShoppingCart } from "lucide-react";
@@ -14,13 +15,26 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
+import { useProductBycategory } from "@/queries/products";
+import { use } from "react";
 
 export default function CategoryPage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+  const { slug } = use(params);
   const categoryName = slug.charAt(0).toUpperCase() + slug.slice(1);
+  const { data, isLoading, error } = useProductBycategory({ slug });
+
+  console.log("slug from params", slug);
 
   // This would normally come from a database or API
-  const products = getProductsByCategory(slug);
+  // const products = getProductsByCategory(slug);
+  const products = data?.category?.products;
+  console.log(products);
+
+  if (isLoading) return <p>Loading...</p>;
+
+  if (error) return <p>Error loading products: {String(error)}</p>;
+
+  console.log("products fethced", data);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -217,7 +231,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
                 {products.map((product, index) => (
                   <Link
                     key={index}
-                    href={`/store/product/${product.id}`}
+                    href={`/store/product/${product._id}`}
                     className="group"
                   >
                     <Card className="overflow-hidden">

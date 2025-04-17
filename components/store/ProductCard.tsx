@@ -4,53 +4,12 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { ShoppingCart } from "lucide-react";
 
-export function ProductCard({ index, category = "" }) {
-  const products = {
-    smartphone: [
-      { name: "iPhone 15 Pro", price: 999.99 },
-      { name: "Samsung Galaxy S23", price: 899.99 },
-      { name: "Google Pixel 8", price: 799.99 },
-      { name: "OnePlus 11", price: 699.99 },
-      { name: "Xiaomi 13", price: 649.99 },
-    ],
-    laptop: [
-      { name: 'MacBook Pro 14"', price: 1999.99 },
-      { name: "Dell XPS 15", price: 1799.99 },
-      { name: "HP Spectre x360", price: 1499.99 },
-      { name: "Lenovo ThinkPad X1", price: 1699.99 },
-      { name: "ASUS ROG Zephyrus", price: 1899.99 },
-    ],
-    accessory: [
-      { name: "AirPods Pro", price: 249.99 },
-      { name: "Samsung Galaxy Watch", price: 299.99 },
-      { name: "Anker Power Bank", price: 49.99 },
-      { name: "Logitech MX Master", price: 99.99 },
-      { name: "Belkin Wireless Charger", price: 39.99 },
-    ],
-  };
-
-  const defaultProducts = [
-    { name: "iPhone 15 Pro", price: 999.99 },
-    { name: 'MacBook Pro 14"', price: 1999.99 },
-    { name: "Samsung Galaxy S23", price: 899.99 },
-    { name: "AirPods Pro", price: 249.99 },
-    { name: "Dell XPS 15", price: 1799.99 },
-    { name: "Google Pixel 8", price: 799.99 },
-    { name: "Samsung Galaxy Watch", price: 299.99 },
-    { name: "HP Spectre x360", price: 1499.99 },
-    { name: "Anker Power Bank", price: 49.99 },
-    { name: "OnePlus 11", price: 699.99 },
-  ];
-
-  const product = category
-    ? products[category][index % products[category].length]
-    : defaultProducts[index % defaultProducts.length];
-
+export function ProductCard({ index, category = "", product }) {
   const isNew = index % 5 === 0;
   const isLowStock = index % 7 === 0;
 
   return (
-    <Link href={`/store/product/${index}`} className="group">
+    <Link href={`/store/product/${product._id}`} className="group">
       <div className="relative overflow-hidden rounded-lg border bg-background">
         <div className="relative aspect-square overflow-hidden">
           {isNew && <Badge className="absolute left-2 top-2 z-10">New</Badge>}

@@ -204,7 +204,7 @@ export default function CartPage() {
                   </CardContent>
                   <CardFooter className="flex flex-col gap-2 p-6 pt-0">
                     <Button className="w-full" asChild>
-                      <Link href="/checkout">Proceed to Checkout</Link>
+                      <Link href="/store/checkout">Proceed to Checkout</Link>
                     </Button>
                     <div className="mt-4 text-center text-xs text-muted-foreground">
                       By proceeding to checkout, you agree to our{" "}

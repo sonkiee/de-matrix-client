@@ -8,7 +8,7 @@ import { toast } from "sonner";
 
 interface AddToCartButtonProps {
   product: {
-    id: string;
+    _id: string;
     name: string;
     price: number;
     image?: string;
@@ -34,7 +34,7 @@ export function AddToCartButton({
     // Simulate a small delay for better UX
     setTimeout(() => {
       addToCart({
-        id: product.id,
+        id: product._id,
         name: product.name,
         price: product.price,
         quantity,
