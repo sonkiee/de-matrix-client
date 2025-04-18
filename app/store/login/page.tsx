@@ -33,7 +33,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <div className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -87,10 +87,8 @@ export default function LoginPage() {
               Remember me
             </label>
           </div>
-          <Button onClick={handleSubmit} className="w-full">
-            Login
-          </Button>
-        </div>
+          <Button className="w-full">Login</Button>
+        </form>
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
