@@ -24,7 +24,7 @@ export const AuthProvider: React.FC<AuthContextProviderProps> = ({
 
   const signIn = async (email: string, password: string) => {
     try {
-      const response = await api.post("/auth/signin", { email, password });
+      const response = await api.post("/users/login", { email, password });
       console.log("Successfully signed in:", response.data);
 
       // Simulate authentication
