@@ -21,9 +21,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCart } from "@/context/cart-context";
+import { useUser } from "@/queries/user";
 
 export default function CheckoutPage() {
   const { cart } = useCart();
+  const { data } = useUser();
+  const user = data?.user;
   const [step, setStep] = useState("shipping");
 
   const subtotal = cart.reduce(
@@ -87,7 +90,7 @@ export default function CheckoutPage() {
                           <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
                               <Label htmlFor="first-name">First Name</Label>
-                              <Input id="first-name" />
+                              <Input id="first-name" contentEditable={false} />
                             </div>
                             <div className="space-y-2">
                               <Label htmlFor="last-name">Last Name</Label>
@@ -96,7 +99,12 @@ export default function CheckoutPage() {
                           </div>
                           <div className="space-y-2">
                             <Label htmlFor="email">Email</Label>
-                            <Input id="email" type="email" />
+                            <Input
+                              id="email"
+                              type="email"
+                              defaultValue={user?.email}
+                              disabled
+                            />
                           </div>
                           <div className="space-y-2">
                             <Label htmlFor="phone">Phone</Label>
