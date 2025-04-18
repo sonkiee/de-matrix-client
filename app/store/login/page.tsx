@@ -9,9 +9,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useAuth } from "@/context/auth-context";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const { signIn } = useAuth();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const email = (e.target as HTMLFormElement).email.value;
+    const password = (e.target as HTMLFormElement).password.value;
+
+    signIn(email, password);
+  };
 
   return (
     <div className="container flex min-h-screen flex-col items-center justify-center py-8">
@@ -71,7 +81,9 @@ export default function LoginPage() {
               Remember me
             </label>
           </div>
-          <Button className="w-full">Login</Button>
+          <Button onClick={handleSubmit} className="w-full">
+            Login
+          </Button>
         </div>
 
         <div className="relative">
