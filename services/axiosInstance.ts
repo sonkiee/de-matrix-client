@@ -12,7 +12,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (axios.isAxiosError(error)) {
-      return Promise.reject(error.response || "Unknown error");
+      return Promise.reject(error.response?.data?.message || "Unknown error");
     }
     return Promise.reject("Unexpexted error");
   }

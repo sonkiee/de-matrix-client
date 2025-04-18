@@ -3,6 +3,7 @@
 import { api } from "@/services/axiosInstance";
 import { AuthContextType, User } from "@/types";
 import React, { createContext, useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
@@ -22,10 +23,13 @@ export const AuthProvider: React.FC<AuthContextProviderProps> = ({
     address: "123 Main St, Anytown, USA",
   });
 
+  const router = useRouter();
+
   const signIn = async (email: string, password: string) => {
     try {
       const response = await api.post("/users/login", { email, password });
       console.log("Successfully signed in:", response.data);
+      router.push("/store");
 
       // Simulate authentication
       // setUser({
@@ -41,8 +45,33 @@ export const AuthProvider: React.FC<AuthContextProviderProps> = ({
     }
   };
 
+  const signUp = async (name: string, email: string, password: string) => {
+    console.log("Signing up with:", { name, email, password });
+    try {
+      const response = await api.post("/users/register", {
+        name,
+        email,
+        password,
+      });
+      console.log("Successfully signed up:", response.data);
+      router.push("/store");
+
+      // Simulate authentication
+      // setUser({
+      //   name,
+      //   email,
+      //   password,
+      //   role: "user",
+      //   address: "123 Main St, Anytown, USA",
+      // });
+    } catch (error) {
+      // Handle sign-up error
+      console.log("Failed to sign up:", error);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser, signIn }}>
+    <AuthContext.Provider value={{ user, setUser, signIn, signUp }}>
       {children}
     </AuthContext.Provider>
   );

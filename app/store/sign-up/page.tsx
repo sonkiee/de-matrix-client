@@ -9,9 +9,23 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useAuth } from "@/context/auth-context";
+import { useRouter } from "next/navigation";
 
 export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const { signUp } = useAuth();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const fn = (e.target as HTMLFormElement).first_name.value;
+    const ln = (e.target as HTMLFormElement).last_name.value;
+    const name = `${fn} ${ln}`;
+    const email = (e.target as HTMLFormElement).email.value;
+    const password = (e.target as HTMLFormElement).password.value;
+
+    signUp(name, email, password);
+  };
 
   return (
     <div className="container flex min-h-screen flex-col items-center justify-center py-8">
@@ -23,15 +37,15 @@ export default function SignupPage() {
           </p>
         </div>
 
-        <div className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="first-name">First Name</Label>
-              <Input id="first-name" placeholder="John" />
+              <Input id="first-name" placeholder="John" name="first_name" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="last-name">Last Name</Label>
-              <Input id="last-name" placeholder="Doe" />
+              <Input id="last-name" placeholder="Doe" name="last_name" />
             </div>
           </div>
           <div className="space-y-2">
@@ -89,7 +103,7 @@ export default function SignupPage() {
             </label>
           </div>
           <Button className="w-full">Sign Up</Button>
-        </div>
+        </form>
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
