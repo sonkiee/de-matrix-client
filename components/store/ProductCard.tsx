@@ -3,6 +3,7 @@ import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { ShoppingCart } from "lucide-react";
+import { naira } from "@/utils/formatCurrency";
 
 export function ProductCard({ index, category = "", product }) {
   const isNew = index % 5 === 0;
@@ -50,7 +51,9 @@ export function ProductCard({ index, category = "", product }) {
                 : "Accessory")}
           </p>
           <div className="mt-2 flex items-center justify-between">
-            <span className="font-semibold">${product.price.toFixed(2)}</span>
+            <span className="font-semibold">
+              {naira(product.price.toFixed(2))}
+            </span>
             <Button variant="ghost" size="icon" className="h-8 w-8">
               <ShoppingCart className="h-4 w-4" />
               <span className="sr-only">Add to cart</span>

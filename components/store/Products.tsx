@@ -48,7 +48,11 @@ export function StoreProducts() {
           <TabsContent value="all" className="mt-6">
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
               {products?.map((product, index) => (
-                <ProductCard key={product.id} product={product} index={index} />
+                <ProductCard
+                  key={product._id}
+                  product={product}
+                  index={index}
+                />
               ))}
             </div>
           </TabsContent>
