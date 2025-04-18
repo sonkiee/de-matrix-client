@@ -36,7 +36,12 @@ export default function LoginPage() {
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="name@example.com" />
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="name@example.com"
+            />
           </div>
           <div className="space-y-2">
             <div className="flex items-center justify-between">
@@ -51,6 +56,7 @@ export default function LoginPage() {
             <div className="relative">
               <Input
                 id="password"
+                name="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
               />
