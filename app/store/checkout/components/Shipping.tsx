@@ -13,8 +13,11 @@ import {
 } from "@/components/ui/select";
 import { TabsContent } from "@/components/ui/tabs";
 import React from "react";
+import { useGetAddress } from "@/queries/user";
 
 const Shipping = ({ setStep, user }) => {
+  const { data: addresses } = useGetAddress();
+  console.log("fecthed address", addresses);
   return (
     <TabsContent value="shipping" className="mt-0">
       <Card>
