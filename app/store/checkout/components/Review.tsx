@@ -1,10 +1,28 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { TabsContent } from "@/components/ui/tabs";
+import { useCart } from "@/context/cart-context";
+import { usePlaceOrder } from "@/hooks/mutation";
 import Image from "next/image";
 import React from "react";
 
 const Review = ({ setStep, cart }) => {
+  const { mutate: placeOrder } = usePlaceOrder();
+  const { orderId } = useCart();
+
+  const handlePlaceOrder = async () => {
+    if (!orderId) {
+      console.error("No orderId available");
+      return;
+    }
+    placeOrder(orderId, {
+      onSuccess: (response) => {
+        window.location.href = response?.data?.data.authorization_url; // Open the payment gateway in a new tab
+        console.log("Payment successfully", response); // ✅ fixed message
+      },
+    });
+    console.log("Placing order", orderId);
+  };
   return (
     <TabsContent value="review" className="mt-0">
       <Card>
@@ -76,7 +94,7 @@ const Review = ({ setStep, cart }) => {
             <Button variant="outline" onClick={() => setStep("payment")}>
               Back to Payment
             </Button>
-            <Button>Place Order</Button>
+            <Button onClick={handlePlaceOrder}>Place Order</Button>
           </div>
         </CardContent>
       </Card>

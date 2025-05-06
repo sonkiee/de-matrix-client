@@ -9,11 +9,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { useGetOrderHistory } from "@/hooks/query";
+import { naira } from "@/utils/formatCurrency";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const OrdersSection = ({ activeTab }) => {
+  const { data } = useGetOrderHistory();
+  console.log("data", data);
   return (
     <>
       {activeTab === "orders" && (
@@ -25,7 +29,7 @@ const OrdersSection = ({ activeTab }) => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {[...Array(3)].map((_, i) => (
+                {data?.orders?.map((order, i) => (
                   <div key={i} className="rounded-lg border">
                     <div className="flex flex-wrap items-center justify-between gap-4 p-4">
                       <div>
@@ -42,25 +46,16 @@ const OrdersSection = ({ activeTab }) => {
                                 : "outline"
                             }
                           >
-                            {i === 0
-                              ? "Delivered"
-                              : i === 1
-                              ? "Shipped"
-                              : "Processing"}
+                            {order.status}
                           </Badge>
                         </div>
                         <p className="text-sm text-muted-foreground">
-                          Placed on{" "}
-                          {i === 0
-                            ? "May 15, 2023"
-                            : i === 1
-                            ? "June 2, 2023"
-                            : "June 10, 2023"}
+                          Placed on {order.createdAt}
                         </p>
                       </div>
                       <div className="text-right">
                         <div className="font-medium">
-                          ${(99.99 + i * 50).toFixed(2)}
+                          {naira(order.totalAmount)}
                         </div>
                         <p className="text-sm text-muted-foreground">
                           {3 - i} items
@@ -70,7 +65,7 @@ const OrdersSection = ({ activeTab }) => {
                     <Separator />
                     <div className="p-4">
                       <div className="flex flex-wrap gap-4">
-                        {[...Array(3 - i)].map((_, j) => (
+                        {order?.products?.map((product, j) => (
                           <div
                             key={j}
                             className="relative h-16 w-16 overflow-hidden rounded-md border"

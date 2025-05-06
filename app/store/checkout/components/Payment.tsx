@@ -43,7 +43,7 @@ const Payment = ({ setStep }) => {
                 />
               </div>
             </div>
-            <div className="flex items-center justify-between rounded-lg border p-4">
+            {/* <div className="flex items-center justify-between rounded-lg border p-4">
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="paypal" id="paypal" />
                 <Label htmlFor="paypal" className="font-medium">
@@ -56,10 +56,10 @@ const Payment = ({ setStep }) => {
                 width={72}
                 height={24}
               />
-            </div>
+            </div> */}
           </RadioGroup>
 
-          <div className="mt-6 space-y-4">
+          {/* <div className="mt-6 space-y-4">
             <div className="space-y-2">
               <Label htmlFor="card-number">Card Number</Label>
               <Input id="card-number" placeholder="1234 5678 9012 3456" />
@@ -87,7 +87,7 @@ const Payment = ({ setStep }) => {
                 Save this card for future payments
               </label>
             </div>
-          </div>
+          </div> */}
 
           <div className="mt-8 flex justify-between">
             <Button variant="outline" onClick={() => setStep("shipping")}>

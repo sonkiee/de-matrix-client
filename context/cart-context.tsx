@@ -18,6 +18,8 @@ type CartContextType = {
   addToCart: (item: CartItem) => void;
   updateQuantity: (id: string, quantity: number) => void;
   removeFromCart: (id: string) => void;
+  orderId: string | null;
+  setOrderId: (orderId: string | null) => void;
 };
 
 const CartContext = createContext<CartContextType>({
@@ -25,10 +27,13 @@ const CartContext = createContext<CartContextType>({
   addToCart: () => {},
   updateQuantity: () => {},
   removeFromCart: () => {},
+  orderId: null,
+  setOrderId: () => {},
 });
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [orderId, setOrderId] = useState<string | null>(null);
 
   // Load cart from localStorage on initial render
   useEffect(() => {
@@ -82,7 +87,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, updateQuantity, removeFromCart }}
+      value={{
+        cart,
+        addToCart,
+        updateQuantity,
+        removeFromCart,
+        orderId,
+        setOrderId,
+      }}
     >
       {children}
     </CartContext.Provider>

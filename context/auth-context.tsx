@@ -15,30 +15,17 @@ interface AuthContextProviderProps {
 export const AuthProvider: React.FC<AuthContextProviderProps> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User | null>({
-    name: "John Doe",
-    email: "johndoe@example.com",
-    password: "password123",
-    role: "user",
-    address: "123 Main St, Anytown, USA",
-  });
+  const [user, setUser] = useState<User | null>();
 
   const router = useRouter();
 
   const signIn = async (email: string, password: string) => {
     try {
-      const response = await api.post("/users/login", { email, password });
-      console.log("Successfully signed in:", response.data);
+      const response = await api.post("/auth/login", { email, password });
+      const { user, token } = response.data.data;
+      localStorage.setItem("token", token);
+      setUser(user);
       router.push("/store");
-
-      // Simulate authentication
-      // setUser({
-      //   name: "John Doe",
-      //   email,
-      //   password,
-      //   role: "user",
-      //   address: "123 Main St, Anytown, USA",
-      // });
     } catch (error) {
       // Handle authentication error
       console.log("Failed to sign in:", error);
@@ -48,7 +35,7 @@ export const AuthProvider: React.FC<AuthContextProviderProps> = ({
   const signUp = async (name: string, email: string, password: string) => {
     console.log("Signing up with:", { name, email, password });
     try {
-      const response = await api.post("/users/register", {
+      const response = await api.post("/auth/register", {
         name,
         email,
         password,
