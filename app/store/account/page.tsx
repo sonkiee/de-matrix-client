@@ -30,7 +30,7 @@ import { PaymentMethodsSection } from "./PaymentMethodsSection";
 export default function AccountPage() {
   const [activeTab, setActiveTab] = useState("profile");
   const [showPassword, setShowPassword] = useState(false);
-  const { data, isLoading, error } = useUser();
+  const { data } = useUser();
 
   const user = data?.user;
 

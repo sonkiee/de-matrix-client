@@ -18,7 +18,11 @@ import { Badge } from "@/components/ui/badge";
 import { useProductBycategory } from "@/queries/products";
 import { use } from "react";
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
+interface CategoryPageProps {
+  params: { slug: string };
+}
+
+export default function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = use(params);
   const categoryName = slug.charAt(0).toUpperCase() + slug.slice(1);
   const { data, isLoading, error } = useProductBycategory({ slug });
@@ -228,7 +232,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
               </div>
 
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
-                {products.map((product, index) => (
+                {products.map((product, index: number) => (
                   <Link
                     key={index}
                     href={`/store/product/${product._id}`}
@@ -318,39 +322,39 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
   );
 }
 
-function getProductsByCategory(category: string) {
-  // This would normally come from a database or API
-  const products = [];
+// function getProductsByCategory(category: string) {
+//   // This would normally come from a database or API
+//   const products = [];
 
-  const brands = getBrands(category);
+//   const brands = getBrands(category);
 
-  for (let i = 1; i <= 12; i++) {
-    const brand = brands[i % brands.length];
-    const isNew = i % 7 === 0;
-    const discount = i % 5 === 0 ? 15 : i % 3 === 0 ? 10 : 0;
-    const price =
-      category === "smartphones"
-        ? 500 + i * 50
-        : category === "laptops"
-        ? 800 + i * 100
-        : 50 + i * 10;
+//   for (let i = 1; i <= 12; i++) {
+//     const brand = brands[i % brands.length];
+//     const isNew = i % 7 === 0;
+//     const discount = i % 5 === 0 ? 15 : i % 3 === 0 ? 10 : 0;
+//     const price =
+//       category === "smartphones"
+//         ? 500 + i * 50
+//         : category === "laptops"
+//         ? 800 + i * 100
+//         : 50 + i * 10;
 
-    const originalPrice =
-      discount > 0 ? price * (100 / (100 - discount)) : price;
+//     const originalPrice =
+//       discount > 0 ? price * (100 / (100 - discount)) : price;
 
-    products.push({
-      id: `${category}-${i}`,
-      name: `${brand} ${getCategorySpecificName(category, i)}`,
-      brand,
-      price,
-      originalPrice,
-      isNew,
-      discount,
-    });
-  }
+//     products.push({
+//       id: `${category}-${i}`,
+//       name: `${brand} ${getCategorySpecificName(category, i)}`,
+//       brand,
+//       price,
+//       originalPrice,
+//       isNew,
+//       discount,
+//     });
+//   }
 
-  return products;
-}
+//   return products;
+// }
 
 function getBrands(category: string) {
   switch (category) {
@@ -369,32 +373,32 @@ function getBrands(category: string) {
   }
 }
 
-function getCategorySpecificName(category: string, index: number) {
-  switch (category) {
-    case "smartphones":
-      return `Phone ${index} Pro`;
-    case "laptops":
-      return `Laptop ${index} Ultra`;
-    case "tablets":
-      return `Tablet ${index}`;
-    case "accessories":
-      return index % 4 === 0
-        ? "Wireless Earbuds"
-        : index % 3 === 0
-        ? "Power Bank"
-        : index % 2 === 0
-        ? "Bluetooth Speaker"
-        : "Smart Watch";
-    case "parts":
-      return index % 3 === 0
-        ? "SSD 1TB"
-        : index % 2 === 0
-        ? "RAM 16GB"
-        : "Graphics Card";
-    default:
-      return `Product ${index}`;
-  }
-}
+// function getCategorySpecificName(category: string, index: number) {
+//   switch (category) {
+//     case "smartphones":
+//       return `Phone ${index} Pro`;
+//     case "laptops":
+//       return `Laptop ${index} Ultra`;
+//     case "tablets":
+//       return `Tablet ${index}`;
+//     case "accessories":
+//       return index % 4 === 0
+//         ? "Wireless Earbuds"
+//         : index % 3 === 0
+//         ? "Power Bank"
+//         : index % 2 === 0
+//         ? "Bluetooth Speaker"
+//         : "Smart Watch";
+//     case "parts":
+//       return index % 3 === 0
+//         ? "SSD 1TB"
+//         : index % 2 === 0
+//         ? "RAM 16GB"
+//         : "Graphics Card";
+//     default:
+//       return `Product ${index}`;
+//   }
+// }
 
 function getDescription(category: string) {
   switch (category) {

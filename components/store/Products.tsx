@@ -8,7 +8,7 @@ import { useCategory } from "@/queries/category";
 export function StoreProducts() {
   const { data, error, isLoading } = useAllProducts();
   const { data: categories } = useCategory();
-  const category = categories?.data;
+  // const category = categories?.data;
 
   // .[0]?.name || "all";
   console.log("Categories fetched", categories);
@@ -60,7 +60,7 @@ export function StoreProducts() {
           {categories?.data.map((cat) => (
             <TabsContent key={cat._id} value={cat._id} className="mt-6">
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-                {filterByCategory(cat._id).map((product, index) => (
+                {filterByCategory(cat._id).map((product, index: number) => (
                   <ProductCard
                     key={product._id}
                     product={product}

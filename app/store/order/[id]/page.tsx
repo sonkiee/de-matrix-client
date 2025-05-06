@@ -2,17 +2,7 @@
 
 import { use, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import {
-  ChevronRight,
-  Package,
-  Truck,
-  CreditCard,
-  CheckCircle,
-  Clock,
-  AlertCircle,
-  ArrowLeft,
-} from "lucide-react";
+import { ChevronRight, AlertCircle, ArrowLeft } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -52,7 +42,7 @@ export default function OrderDetailsPage({
         <AlertCircle className="h-16 w-16 text-muted-foreground" />
         <h1 className="mt-6 text-2xl font-bold">Order Not Found</h1>
         <p className="mt-2 text-muted-foreground">
-          We couldn't find the order you're looking for.
+          We couldn&apos;t find the order you&apos;re looking for.
         </p>
         <Button asChild className="mt-6">
           <Link href="/account">Back to Account</Link>
@@ -493,166 +483,4 @@ export default function OrderDetailsPage({
       </main>
     </div>
   );
-}
-
-function getOrderById(id: string) {
-  // This would normally come from an API or database
-  // Mock data for demonstration
-  const orderDate = new Date();
-  orderDate.setDate(orderDate.getDate() - 3);
-
-  const isDelivered = parseInt(id) % 4 === 0;
-  const isShipped = parseInt(id) % 4 === 1 || isDelivered;
-  const isProcessing = parseInt(id) % 4 === 2 || isShipped;
-  const isCancelled = parseInt(id) % 4 === 3;
-
-  const status = isDelivered
-    ? "Delivered"
-    : isShipped
-    ? "Shipped"
-    : isProcessing
-    ? "Processing"
-    : "Cancelled";
-
-  const items = [
-    {
-      id: "smartphone-1",
-      name: "iPhone 15 Pro",
-      price: 999.99,
-      quantity: 1,
-      variant: "128GB, Titanium",
-      image: "/placeholder.svg?height=96&width=96&text=iPhone",
-    },
-    {
-      id: "accessory-2",
-      name: "AirPods Pro",
-      price: 249.99,
-      quantity: 1,
-      variant: "White",
-      image: "/placeholder.svg?height=96&width=96&text=AirPods",
-    },
-  ];
-
-  if (parseInt(id) % 2 === 0) {
-    items.push({
-      id: "accessory-3",
-      name: "iPhone 15 Pro Case",
-      price: 49.99,
-      quantity: 1,
-      variant: "Clear",
-      image: "/placeholder.svg?height=96&width=96&text=Case",
-    });
-  }
-
-  const subtotal = items.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
-  const shipping = 9.99;
-  const tax = subtotal * 0.07;
-  const discount = parseInt(id) % 3 === 0 ? subtotal * 0.1 : 0;
-  const total = subtotal + shipping + tax - discount;
-
-  const timeline = [
-    {
-      title: "Order Placed",
-      description: "Your order has been received and is being processed.",
-      date: new Date(
-        orderDate.getTime() - 3 * 24 * 60 * 60 * 1000
-      ).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      icon: "package",
-      completed: isProcessing || isShipped || isDelivered,
-    },
-    {
-      title: "Processing",
-      description: "Your order is being prepared for shipping.",
-      date: new Date(
-        orderDate.getTime() - 2 * 24 * 60 * 60 * 1000
-      ).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      icon: "clock",
-      completed: isProcessing || isShipped || isDelivered,
-    },
-    {
-      title: "Shipped",
-      description: "Your order has been shipped and is on its way.",
-      date: new Date(
-        orderDate.getTime() - 1 * 24 * 60 * 60 * 1000
-      ).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      icon: "truck",
-      completed: isShipped || isDelivered,
-    },
-    {
-      title: "Delivered",
-      description: "Your order has been delivered.",
-      date: orderDate.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      icon: "check",
-      completed: isDelivered,
-    },
-  ];
-
-  return {
-    id,
-    date: orderDate.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    }),
-    status,
-    items,
-    subtotal,
-    shipping,
-    tax,
-    discount,
-    total,
-    paymentMethod: parseInt(id) % 2 === 0 ? "Visa Card" : "PayPal",
-    paymentLast4: "4242",
-    trackingNumber:
-      isShipped || isDelivered
-        ? "TRK" + Math.floor(Math.random() * 1000000000).toString()
-        : null,
-    timeline,
-    shipping: {
-      name: "John Doe",
-      address1: "123 Main Street",
-      address2: "Apt 4B",
-      city: "San Francisco",
-      state: "CA",
-      zip: "94107",
-      country: "United States",
-      phone: "(123) 456-7890",
-    },
-    billingAddress: {
-      name: "John Doe",
-      address1: "123 Main Street",
-      address2: "Apt 4B",
-      city: "San Francisco",
-      state: "CA",
-      zip: "94107",
-      country: "United States",
-    },
-  };
 }

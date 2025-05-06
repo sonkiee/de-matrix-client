@@ -51,7 +51,7 @@ export default function CartPage() {
               </div>
               <h2 className="text-xl font-semibold">Your cart is empty</h2>
               <p className="text-muted-foreground">
-                Looks like you haven't added anything to your cart yet.
+                Looks like you haven&apos;t added anything to your cart yet.
               </p>
               <Button asChild className="mt-4">
                 <Link href="/">Continue Shopping</Link>
@@ -197,7 +197,8 @@ export default function CartPage() {
                       </div>
                       {promoApplied && (
                         <div className="text-sm text-green-600">
-                          Promo code "DISCOUNT10" applied successfully!
+                          Promo code &quot;DISCOUNT10&quot; applied
+                          successfully!
                         </div>
                       )}
                     </div>

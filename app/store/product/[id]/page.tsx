@@ -1,15 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  ChevronRight,
-  Heart,
-  Minus,
-  Plus,
-  Share2,
-  ShoppingCart,
-  Star,
-} from "lucide-react";
+import { ChevronRight, Heart, Minus, Plus, Share2, Star } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -312,7 +304,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                       <li>Long-lasting battery life for all-day use</li>
                       <li>Premium build quality with attention to detail</li>
                       <li>
-                        Advanced camera system for capturing life's moments
+                        Advanced camera system for capturing life&apos;s moments
                       </li>
                     </ul>
                   </div>

@@ -14,13 +14,11 @@ import {
 import { TabsContent } from "@/components/ui/tabs";
 import React, { useState } from "react";
 import { useGetAddress } from "@/queries/user";
-import { useAuth } from "@/context/auth-context";
 import { useCreateAddress, useCreateOrder } from "@/hooks/mutation";
 import { NIGERIAN_STATES_OPTIONS } from "@/constants";
 import { useCart } from "@/context/cart-context";
 
 const Shipping = ({ setStep }) => {
-  const { user } = useAuth();
   const { mutate: createAddress } = useCreateAddress();
   const { mutate: createOrder } = useCreateOrder();
   const { data: addresses } = useGetAddress();
