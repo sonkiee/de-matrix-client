@@ -9,7 +9,7 @@ import { Newsletter } from "@/components/store/NewsLetter";
 
 export default function Store() {
   return (
-    <div className="flex min-h-screen flex-col px-6">
+    <div className="flex min-h-screen flex-col px-2">
       {/* Mobile Search - visible only on small screens */}
       <div className="container py-4 md:hidden">
         <div className="relative w-full">
@@ -22,7 +22,7 @@ export default function Store() {
         </div>
       </div>
 
-      <main className="flex-1">
+      <main className="flex flex-col">
         {/* Hero Banner */}
         <StoreHeroSection />
 

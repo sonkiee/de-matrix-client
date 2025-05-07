@@ -4,13 +4,13 @@ import Image from "next/image";
 
 export function StoreHeroSection() {
   return (
-    <section className="bg-muted py-6 md:py-12">
-      <div className="container grid items-center gap-6 md:grid-cols-2">
-        <div className="flex flex-col gap-4">
+    <section className="bg-muted py-4 md:py-12 overflow-hidden">
+      <div className="container mx-auto grid grid-cols-1 items-center gap-6 md:grid-cols-2">
+        <div className="flex flex-col gap-4 max-w-xl">
           <h1 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
             New iPhone 15 Pro
           </h1>
-          <p className="text-muted-foreground md:text-lg">
+          <p className="text-muted-foreground break-words text-base md:text-lg">
             Experience the power of the latest A17 Pro chip and a titanium
             design.
           </p>
@@ -23,7 +23,7 @@ export function StoreHeroSection() {
         </div>
         <div className="flex justify-center">
           <Image
-            src="/placeholder.svg?height=400&width=400"
+            src="/placeholder.svg"
             alt="iPhone 15 Pro"
             width={400}
             height={400}
