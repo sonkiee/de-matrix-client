@@ -15,7 +15,7 @@ export default function LandingPage() {
 
   return (
     <div className={darkMode ? "dark" : ""}>
-      <div className="flex bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
+      <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
         {/* Header */}
         <Header darkMode={darkMode} setDarkMode={setDarkMode} />
 
