@@ -17,14 +17,16 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetOrderDetails } from "@/hooks/query";
 import OrderProductItem from "../components/OrderProduct";
+import { OrderProduct } from "@/types";
 // import { useToast } from "@/hooks/use-toast";
 
 export default function OrderDetailsPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const { id } = use(params);
+  const resolvedParams = use(params);
+  const { id } = resolvedParams;
   const { data, isLoading } = useGetOrderDetails(id);
   // const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("items");
@@ -148,16 +150,18 @@ export default function OrderDetailsPage({
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-6">
-                        {order?.products?.map((item, index) => (
-                          <OrderProductItem
-                            key={index}
-                            productId={item.product}
-                            quantity={item.quantity}
-                            price={item.price}
-                            variant={item.variant}
-                            status={order.status}
-                          />
-                        ))}
+                        {order?.products?.map(
+                          (item: OrderProduct, index: number) => (
+                            <OrderProductItem
+                              key={index}
+                              productId={item.product}
+                              quantity={item.quantity}
+                              price={item.price}
+                              variant={item.variant}
+                              status={order.status}
+                            />
+                          )
+                        )}
                       </div>
                     </CardContent>
                   </Card>

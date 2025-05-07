@@ -18,7 +18,7 @@ import { useCreateAddress, useCreateOrder } from "@/hooks/mutation";
 import { NIGERIAN_STATES_OPTIONS } from "@/constants";
 import { useCart } from "@/context/cart-context";
 
-const Shipping = ({ setStep }) => {
+const Shipping = ({ setStep }: { setStep: (step: string) => void }) => {
   const { mutate: createAddress } = useCreateAddress();
   const { mutate: createOrder } = useCreateOrder();
   const { data: addresses } = useGetAddress();

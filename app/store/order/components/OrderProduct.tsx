@@ -4,7 +4,19 @@ import { naira } from "@/utils/formatCurrency";
 import Image from "next/image";
 import Link from "next/link";
 
-const OrderProductItem = ({ productId, quantity, price, variant, status }) => {
+const OrderProductItem = ({
+  productId,
+  quantity,
+  price,
+  variant,
+  status,
+}: {
+  productId: string;
+  quantity: number;
+  price: number;
+  variant?: string;
+  status: string;
+}) => {
   const { data, isLoading } = useGetProductById(productId);
 
   if (isLoading) return <p> loading </p>; // or show a skeleton loader

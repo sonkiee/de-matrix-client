@@ -10,12 +10,13 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useGetOrderHistory } from "@/hooks/query";
+import { Order } from "@/types";
 import { naira } from "@/utils/formatCurrency";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const OrdersSection = ({ activeTab }) => {
+const OrdersSection = ({ activeTab }: { activeTab: string }) => {
   const { data } = useGetOrderHistory();
   console.log("data", data);
   return (
@@ -29,7 +30,7 @@ const OrdersSection = ({ activeTab }) => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {data?.orders?.map((order, i) => (
+                {data?.orders?.map((order: Order, i: number) => (
                   <div key={i} className="rounded-lg border">
                     <div className="flex flex-wrap items-center justify-between gap-4 p-4">
                       <div>

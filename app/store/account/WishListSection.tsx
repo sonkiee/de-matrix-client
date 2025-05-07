@@ -10,7 +10,7 @@ import { Trash2 } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
-const WishListSection = ({ activeTab }) => {
+const WishListSection = ({ activeTab }: { activeTab: string }) => {
   return (
     <>
       {" "}

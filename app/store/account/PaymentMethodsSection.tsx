@@ -11,7 +11,7 @@ import { Edit, Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
-export const PaymentMethodsSection = ({ activeTab }) => {
+export const PaymentMethodsSection = ({ activeTab }: { activeTab: string }) => {
   return (
     <>
       {activeTab === "payment" && (

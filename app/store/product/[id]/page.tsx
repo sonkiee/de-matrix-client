@@ -18,8 +18,13 @@ import { AddToCartButton } from "@/components/add-to-cart-bitton";
 import { useProductById } from "@/queries/products";
 import { use } from "react";
 
-export default function ProductPage({ params }: { params: { id: string } }) {
-  const { id } = use(params);
+export default function ProductPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const resolvedParams = use(params);
+  const { id } = resolvedParams;
 
   const { data, error, isLoading } = useProductById({ id });
 

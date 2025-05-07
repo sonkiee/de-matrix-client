@@ -48,7 +48,7 @@ export const useCreateOrder = () => {
 
 export const usePlaceOrder = () => {
   return useMutation({
-    mutationFn: async (orderId) => {
+    mutationFn: async (orderId: string) => {
       const response = await api.post("/order/payment/init", { orderId });
       return response.data;
     },

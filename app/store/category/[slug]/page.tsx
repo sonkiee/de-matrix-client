@@ -17,13 +17,16 @@ import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { useProductBycategory } from "@/queries/products";
 import { use } from "react";
+import { Product } from "@/types";
+// import { use } from "react";
 
-interface CategoryPageProps {
-  params: { slug: string };
+interface PageProps {
+  params: Promise<{ slug: string }>;
 }
 
-export default function CategoryPage({ params }: CategoryPageProps) {
-  const { slug } = use(params);
+const CategoryPage = ({ params }: PageProps) => {
+  const resolvedParams = use(params);
+  const { slug } = resolvedParams;
   const categoryName = slug.charAt(0).toUpperCase() + slug.slice(1);
   const { data, isLoading, error } = useProductBycategory({ slug });
 
@@ -232,7 +235,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               </div>
 
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
-                {products.map((product, index: number) => (
+                {products.map((product: Product, index: number) => (
                   <Link
                     key={index}
                     href={`/store/product/${product._id}`}
@@ -320,7 +323,9 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       </main>
     </div>
   );
-}
+};
+
+export default CategoryPage;
 
 // function getProductsByCategory(category: string) {
 //   // This would normally come from a database or API

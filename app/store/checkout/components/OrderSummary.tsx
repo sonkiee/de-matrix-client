@@ -2,7 +2,21 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 
-const OrderSummary = ({ cart, subtotal, shipping, tax, total }) => {
+interface OrderSummaryProps {
+  cart: { id: string; name: string; price: number; quantity: number }[];
+  subtotal: number;
+  shipping: number;
+  tax: number;
+  total: number;
+}
+
+const OrderSummary = ({
+  cart,
+  subtotal,
+  shipping,
+  tax,
+  total,
+}: OrderSummaryProps) => {
   return (
     <Card>
       <CardContent className="p-6">

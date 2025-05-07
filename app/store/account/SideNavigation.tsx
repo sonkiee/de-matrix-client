@@ -8,7 +8,13 @@ import {
   User,
 } from "lucide-react";
 
-const SideNavigation = ({ activeTab, setActiveTab }) => {
+const SideNavigation = ({
+  activeTab,
+  setActiveTab,
+}: {
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+}) => {
   return (
     <div className="hidden lg:block">
       <nav className="flex flex-col gap-2">

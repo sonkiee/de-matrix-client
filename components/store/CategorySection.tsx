@@ -3,6 +3,7 @@ import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCategory } from "@/queries/category";
+import { Category } from "@/types";
 
 export function StoreCategories() {
   const { data: categories } = useCategory();
@@ -41,7 +42,7 @@ export function StoreCategories() {
               </h3>
             </div>
           </Link>
-          {categories?.data.map((category) => (
+          {categories?.data.map((category: Category) => (
             <Link
               href={`/store/category/${category.name}`}
               className="group relative overflow-hidden rounded-lg"

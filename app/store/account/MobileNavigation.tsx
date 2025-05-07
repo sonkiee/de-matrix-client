@@ -2,7 +2,13 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Settings, ShoppingBag, User } from "lucide-react";
 import React from "react";
 
-const MobileNavigation = ({ activeTab, setActiveTab }) => {
+const MobileNavigation = ({
+  activeTab,
+  setActiveTab,
+}: {
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+}) => {
   return (
     <div className="lg:hidden">
       <Tabs defaultValue={activeTab} onValueChange={setActiveTab}>

@@ -45,7 +45,7 @@ export default async function middleware(req: NextRequest) {
 
   try {
     // Check if token validation is cached
-    const cachedValidation = tokenValidationCache.get(token);
+    const cachedValidation = tokenValidationCache.get(token!);
     const now = Date.now();
 
     if (cachedValidation && now - cachedValidation.timestamp < CACHE_DURATION) {
@@ -68,12 +68,14 @@ export default async function middleware(req: NextRequest) {
       timeout: 3000, // Add timeout to prevent hanging requests
     });
 
+    console.log(response);
+
     // Cache successful validation
-    tokenValidationCache.set(token, { isValid: true, timestamp: now });
+    tokenValidationCache.set(token!, { isValid: true, timestamp: now });
 
     // For protected and public routes, we continue with the validated token
     return NextResponse.next();
-  } catch (error: any) {
+  } catch (error) {
     console.error("Authentication error:", error || "Unknown error");
 
     if (isProtected) {

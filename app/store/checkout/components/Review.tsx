@@ -1,12 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { TabsContent } from "@/components/ui/tabs";
-import { useCart } from "@/context/cart-context";
+import { CartItem, useCart } from "@/context/cart-context";
 import { usePlaceOrder } from "@/hooks/mutation";
 import Image from "next/image";
 import React from "react";
 
-const Review = ({ setStep, cart }) => {
+const Review = ({
+  setStep,
+  cart,
+}: {
+  setStep: (step: string) => void;
+  cart: CartItem[];
+}) => {
   const { mutate: placeOrder } = usePlaceOrder();
   const { orderId } = useCart();
 

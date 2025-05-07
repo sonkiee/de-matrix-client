@@ -6,7 +6,7 @@ import { TabsContent } from "@/components/ui/tabs";
 import Image from "next/image";
 import React from "react";
 
-const Payment = ({ setStep }) => {
+const Payment = ({ setStep }: { setStep: (step: string) => void }) => {
   return (
     <TabsContent value="payment" className="mt-0">
       <Card>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ChevronRight, CreditCard, Lock, Truck } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCart } from "@/context/cart-context";
-import { useUser } from "@/queries/user";
+// import { useUser } from "@/queries/user";
 import Shipping from "./components/Shipping";
 import Payment from "./components/Payment";
 import Review from "./components/Review";
@@ -13,8 +13,8 @@ import OrderSummary from "./components/OrderSummary";
 
 export default function CheckoutPage() {
   const { cart } = useCart();
-  const { data } = useUser();
-  const user = data?.user;
+  // const { data } = useUser();
+  // const user = data?.user;
   const [step, setStep] = useState("shipping");
 
   const subtotal = cart.reduce(
@@ -68,7 +68,7 @@ export default function CheckoutPage() {
 
               <div className="mt-8 grid gap-8 lg:grid-cols-3">
                 <div className="lg:col-span-2">
-                  <Shipping setStep={setStep} user={user} />
+                  <Shipping setStep={setStep} />
 
                   <Payment setStep={setStep} />
 

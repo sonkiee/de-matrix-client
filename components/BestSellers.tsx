@@ -6,6 +6,7 @@ import { AddToCartButton } from "./add-to-cart-bitton";
 import { useFeatured } from "@/queries/products";
 import { naira } from "@/utils/formatCurrency";
 import { Spinner } from "./Spinner";
+import { Product } from "@/types";
 
 export function BestSellers() {
   const { data, isLoading, isError } = useFeatured();
@@ -48,7 +49,7 @@ export function BestSellers() {
           Best Sellers
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {isFeatured?.map((product, index) => (
+          {isFeatured?.map((product: Product, index: number) => (
             <Card key={index} className="overflow-hidden">
               <div className="h-48 bg-gray-200 relative">
                 <Image

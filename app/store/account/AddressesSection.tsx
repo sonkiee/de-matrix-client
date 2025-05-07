@@ -10,7 +10,7 @@ import {
 import { Edit, Plus, Trash2 } from "lucide-react";
 import React from "react";
 
-const AddressesSection = ({ activeTab }) => {
+const AddressesSection = ({ activeTab }: { activeTab: string }) => {
   return (
     <>
       {" "}
