@@ -7,7 +7,7 @@ export const useAllProducts = () => {
   return useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const response = await api.get("/products");
+      const response = await api.get("/product");
       return response.data;
     },
   });
@@ -18,7 +18,7 @@ export const useProductById = ({ id }: { id: string }) => {
     queryKey: ["product", id],
     queryFn: async ({ queryKey }) => {
       const [, productId] = queryKey;
-      const response = await api.get(`/products/${productId}`);
+      const response = await api.get(`/product/${productId}`);
       return response.data;
     },
   });
