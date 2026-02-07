@@ -13,7 +13,7 @@ const CACHE_DURATION = 5 * 60 * 1000;
 
 // 60 * 60 * 1000; // 1 hour
 
-export default async function middleware(req: NextRequest) {
+export default async function proxy(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
   const token = req.cookies.get("token")?.value;
 
