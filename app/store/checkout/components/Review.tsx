@@ -68,7 +68,7 @@ const Review = ({
               <div className="mt-2 space-y-4 rounded-lg border p-4">
                 {cart.map((item) => (
                   <div key={item.id} className="flex items-center gap-4">
-                    <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border">
+                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-md border">
                       <Image
                         src={
                           item.image ||

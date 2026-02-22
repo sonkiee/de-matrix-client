@@ -37,3 +37,8 @@ export const NIGERIAN_STATES_OPTIONS = [
   { label: "Zamfara", value: "zamfara" },
   { label: "FCT - Abuja", value: "fct-abuja" },
 ];
+
+export const images = {
+  hero: "@/assets/images/hero.png",
+  // iphone: "../assets/images/iphone.png",
+};

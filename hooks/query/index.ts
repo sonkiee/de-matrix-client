@@ -1,4 +1,4 @@
-import { api } from "@/services/axiosInstance";
+import { api } from "@/services/axios";
 import { useQuery } from "@tanstack/react-query";
 
 export const useGetOrderHistory = () => {

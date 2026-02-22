@@ -1,4 +1,4 @@
-import { api } from "@/services/axiosInstance";
+import { api } from "@/services/axios";
 import { useMutation } from "@tanstack/react-query";
 
 // Create Address Hook

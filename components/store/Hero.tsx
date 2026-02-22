@@ -10,7 +10,7 @@ export function StoreHeroSection() {
           <h1 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
             New iPhone 15 Pro
           </h1>
-          <p className="text-muted-foreground break-words text-base md:text-lg">
+          <p className="text-muted-foreground wrap-break-word text-base md:text-lg">
             Experience the power of the latest A17 Pro chip and a titanium
             design.
           </p>

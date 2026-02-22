@@ -27,7 +27,7 @@ const OrderProductItem = ({
 
   return (
     <div className="flex flex-wrap gap-4 sm:flex-nowrap">
-      <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border">
+      <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-md border">
         <Image
           src={
             product.images[0] ||

@@ -1,12 +1,12 @@
 "use client";
 
-import { api } from "@/services/axiosInstance";
+import { api } from "@/services/axios";
 import { AuthContextType, User } from "@/types";
 import React, { createContext, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export const AuthContext = createContext<AuthContextType | undefined>(
-  undefined
+  undefined,
 );
 
 interface AuthContextProviderProps {
@@ -21,7 +21,7 @@ export const AuthProvider: React.FC<AuthContextProviderProps> = ({
 
   const signIn = async (email: string, password: string) => {
     try {
-      const response = await api.post("/auth/login", { email, password });
+      const response = await api.post("/auth/signin", { email, password });
       const { user, token } = response.data.data;
       localStorage.setItem("token", token);
       setUser(user);

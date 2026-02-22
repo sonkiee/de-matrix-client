@@ -206,7 +206,7 @@ export default function OrderDetailsPage({
                                 }`}
                               ></div>
                               <div
-                                className={`ml-8 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${
+                                className={`ml-8 flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
                                   event.completed
                                     ? "bg-primary text-primary-foreground"
                                     : "bg-muted text-muted-foreground"

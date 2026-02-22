@@ -5,7 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { CartProvider } from "@/context/cart-context";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/context/auth-context";
-import { CartIcon } from "@/components/CartIcon";
+import { CartIcon } from "@/components/cart-icon";
 import { ReactQueryProvider } from "@/providers/react-query-provider";
 
 const geistSans = Geist({
@@ -43,7 +43,7 @@ export default function RootLayout({
         </AuthProvider>
 
         <Analytics />
-        <Toaster />
+        <Toaster position="top-center" duration={3000} />
       </body>
     </html>
   );

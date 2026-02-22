@@ -70,7 +70,7 @@ export default function CartPage() {
                   {cart.map((item) => (
                     <div key={item.id} className="group">
                       <div className="flex items-start gap-4 p-6">
-                        <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg border">
+                        <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-lg border">
                           <Image
                             src={
                               item.image ||

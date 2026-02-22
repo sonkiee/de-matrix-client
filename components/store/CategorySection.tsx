@@ -35,7 +35,7 @@ export function StoreCategories() {
               height={200}
               className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
             <div className="absolute bottom-0 w-full p-4">
               <h3 className="text-lg font-semibold capitalize text-white">
                 All
@@ -55,7 +55,7 @@ export function StoreCategories() {
                 height={200}
                 className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
               <div className="absolute bottom-0 w-full p-4">
                 <h3 className="text-lg font-semibold capitalize text-white">
                   {category.name}
