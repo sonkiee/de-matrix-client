@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { useFeatured } from "@/queries/products";
-import { naira } from "@/utils/formatCurrency";
+import { naira } from "@/utils/naira";
 import { cn } from "@/lib/utils"; // if you have it, else remove
 
 type Product = {

@@ -55,3 +55,13 @@ export const useProductBycategory = ({ slug }: { slug: string }) => {
     enabled: !!slug, // prevent running when category is undefined
   });
 };
+
+export const useListProducts = () => {
+  return useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const response = await api.get("/products");
+      return response.data;
+    },
+  });
+};

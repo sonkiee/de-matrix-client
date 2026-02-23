@@ -3,7 +3,7 @@ import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { ShoppingCart } from "lucide-react";
-import { naira } from "@/utils/formatCurrency";
+import { naira } from "@/utils/naira";
 import { Product } from "@/types";
 
 export function ProductCard({
@@ -33,7 +33,7 @@ export function ProductCard({
           )}
           <Image
             src={`/placeholder.svg?height=300&width=300&text=${encodeURIComponent(
-              product.name
+              product.name,
             )}`}
             alt={product.name}
             width={300}
@@ -56,8 +56,8 @@ export function ProductCard({
               (index % 3 === 0
                 ? "Smartphone"
                 : index % 3 === 1
-                ? "Laptop"
-                : "Accessory")}
+                  ? "Laptop"
+                  : "Accessory")}
           </p>
           <div className="mt-2 flex items-center justify-between">
             <span className="font-semibold">{naira(product.price)}</span>

@@ -3,8 +3,8 @@ import { ShoppingCart, User } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
 import { useCart } from "@/context/cart-context";
+import { cn } from "@/utils/cn";
 
 export const navLinks = [
   "smartphones",
@@ -44,7 +44,7 @@ export function StoreHeader() {
                       item === "deals"
                         ? "text-rose-500 hover:text-rose-600"
                         : "",
-                      isActive && "text-primary underline"
+                      isActive && "text-primary underline",
                     )}
                   >
                     {item.charAt(0).toUpperCase() + item.slice(1)}

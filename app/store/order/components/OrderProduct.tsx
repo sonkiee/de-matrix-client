@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useGetProductById } from "@/hooks/query";
-import { naira } from "@/utils/formatCurrency";
+import { naira } from "@/utils/naira";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -32,7 +32,7 @@ const OrderProductItem = ({
           src={
             product.images[0] ||
             `/placeholder.svg?height=96&width=96&text=${encodeURIComponent(
-              product.name
+              product.name,
             )}`
           }
           alt={product.name}

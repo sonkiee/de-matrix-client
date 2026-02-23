@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/context/auth-context";
 import { CartIcon } from "@/components/cart-icon";
 import { ReactQueryProvider } from "@/providers/react-query-provider";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,8 +37,16 @@ export default function RootLayout({
         <AuthProvider>
           <CartProvider>
             <ReactQueryProvider>
-              {children}
-              <CartIcon />
+              <Suspense
+                fallback={
+                  <div className="fixed top-4 right-4">
+                    <CartIcon />
+                  </div>
+                }
+              >
+                {children}
+                <CartIcon />
+              </Suspense>
             </ReactQueryProvider>
           </CartProvider>
         </AuthProvider>

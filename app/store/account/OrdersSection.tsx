@@ -11,7 +11,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { useGetOrderHistory } from "@/hooks/query";
 import { Order } from "@/types";
-import { naira } from "@/utils/formatCurrency";
+import { naira } from "@/utils/naira";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -43,8 +43,8 @@ const OrdersSection = ({ activeTab }: { activeTab: string }) => {
                               i === 0
                                 ? "default"
                                 : i === 1
-                                ? "secondary"
-                                : "outline"
+                                  ? "secondary"
+                                  : "outline"
                             }
                           >
                             {order.status}
