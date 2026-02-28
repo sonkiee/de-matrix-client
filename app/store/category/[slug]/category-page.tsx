@@ -80,11 +80,12 @@ export default function CategoryPage() {
   const params = useParams();
   const slug = typeof params?.slug === "string" ? params.slug : "products";
 
-  const { data, isLoading, error } = useListProducts();
+  const { data: p, isLoading, error } = useListProducts();
+  console.log("API data:", p);
 
   // If your API returns { products: Product[] } adjust here.
   // For now: assume `data` might already be an array.
-  const apiProducts = Array.isArray(data) ? (data as Product[]) : [];
+  const apiProducts = Array.isArray(p?.data) ? (p?.data as Product[]) : [];
 
   const products: Product[] = apiProducts.length
     ? apiProducts

@@ -24,6 +24,16 @@ export const useProductById = ({ id }: { id: string }) => {
   });
 };
 
+export const useFetchProductById = (id: string) => {
+  return useQuery({
+    queryKey: ["product-details", id],
+    queryFn: async () => {
+      const response = await api.get(`/products/${id}`);
+      return response.data;
+    },
+  });
+};
+
 export const useFeatured = () => {
   return useQuery({
     queryKey: ["products"],
