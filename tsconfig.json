@@ -34,7 +34,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
-  ],
+, "app/(store)/loading.tsc"  ],
   "exclude": [
     "node_modules"
   ]

@@ -14,17 +14,39 @@ export type AuthContextType = {
   signUp: (name: string, email: string, password: string) => void;
 };
 
-export interface Product {
-  _id: string;
-  name: string;
+export type ProductVariant = {
+  id: string;
+  productId: string;
+  condition: "new" | "used" | "nigerian_used" | "refurbished";
+  storage?: number | null;
+  color?: string | null;
+  price: string; // numeric -> string
+  compareAtPrice?: string | null;
+  stockQty: number;
+  isActive: boolean;
+};
+
+export type Product = {
+  id: string;
+  title: string;
+  slug: string;
+  description?: string | null;
+
+  specs?: Record<string, any> | null;
+
+  minPrice?: string | null;
+  maxPrice?: string | null;
+  inStock: boolean;
+
+  brand: { id: string; name: string };
+  category: { id: string; name: string };
+
+  images: { url: string }[];
+  variants: ProductVariant[];
+
+  isNewArrival: boolean;
   discount: number;
-  isNew?: boolean;
-  price: number;
-  description?: string;
-  originalPrice: number;
-  brand: string;
-  category?: string | undefined;
-}
+};
 
 export interface OrderProduct {
   id: number;

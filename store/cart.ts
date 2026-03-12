@@ -2,13 +2,18 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export type CartItem = {
-  id: string;
-  name: string;
-  price: number;
-  brand: string;
+  variantId: string;
+  productId: string;
   qty: number;
+
+  // snapshot for display
+  title: string;
   image?: string;
-  variant?: string;
+  price: number;
+
+  condition?: "new" | "used" | "refurbished";
+  storage?: number;
+  color?: string;
 };
 
 type CartState = {
@@ -18,10 +23,12 @@ type CartState = {
   subtotal: () => number;
 
   add: (item: Omit<CartItem, "qty">, qty?: number) => void;
-  remove: (id: string, variant?: string) => void;
+  remove: (productId: string, variantId: string) => void;
 
-  increment: (id: string, variant?: string) => void;
-  decrement: (id: string, variant?: string) => void;
+  setQty: (productId: string, variantId: string, qty: number) => void;
+
+  increment: (productId: string, variantId: string) => void;
+  decrement: (productId: string, variantId: string) => void;
   clear: () => void;
 };
 
@@ -41,10 +48,11 @@ export const useCartStore = create<CartState>()(
 
       add: (item, qty = 1) => {
         const safeQty = Math.max(1, Math.floor(qty));
-        const k = keyOf(item.id, item.variant);
+        const k = keyOf(item.productId, item.variantId);
+
         set((state) => {
           const idx = state.items.findIndex(
-            (i) => keyOf(i.id, i.variant) === k,
+            (i) => keyOf(i.productId, i.variantId) === k,
           );
 
           if (idx === -1) {
@@ -56,41 +64,51 @@ export const useCartStore = create<CartState>()(
         });
       },
 
-      remove: (id, variant) => {
-        const k = keyOf(id, variant);
+      remove: (productId, variantId) => {
+        const k = keyOf(productId, variantId);
         set((state) => ({
-          items: state.items.filter((x) => keyOf(x.id, x.variant) !== k),
+          items: state.items.filter(
+            (x) => keyOf(x.productId, x.variantId) !== k,
+          ),
         }));
       },
 
-      setQty: (id: string, qty: number, variant?: string) => {
-        const k = keyOf(id, variant);
+      setQty: (productId, variantId, qty) => {
+        const k = keyOf(productId, variantId);
         const safeQty = Math.max(0, Math.floor(qty));
+
         set((state) => {
           const items = state.items
             .map((x) =>
-              keyOf(x.id, x.variant) === k ? { ...x, qty: safeQty } : x,
+              keyOf(x.productId, x.variantId) === k
+                ? { ...x, qty: safeQty }
+                : x,
             )
             .filter((x) => x.qty > 0);
           return { items };
         });
       },
 
-      increment: (id, variant) => {
-        const k = keyOf(id, variant);
+      increment: (productId, variantId) => {
+        const k = keyOf(productId, variantId);
         set((state) => ({
           items: state.items.map((x) =>
-            keyOf(x.id, x.variant) === k ? { ...x, qty: x.qty + 1 } : x,
+            keyOf(x.productId, x.variantId) === k
+              ? { ...x, qty: x.qty + 1 }
+              : x,
           ),
         }));
       },
 
-      decrement: (id, variant) => {
-        const k = keyOf(id, variant);
+      decrement: (productId, variantId) => {
+        const k = keyOf(productId, variantId);
+
         set((state) => {
           const items = state.items
             .map((x) =>
-              keyOf(x.id, x.variant) === k ? { ...x, qty: x.qty - 1 } : x,
+              keyOf(x.productId, x.variantId) === k
+                ? { ...x, qty: x.qty - 1 }
+                : x,
             )
             .filter((x) => x.qty > 0);
           return { items };

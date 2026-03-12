@@ -1,5 +1,5 @@
 import { actionClient } from "@/lib/safe-action";
-import { signinSchema } from "@/schema";
+import { createOrderSchema, initPaymentSchema, signinSchema } from "@/schema";
 import { api } from "@/services/axios";
 
 export const signin = actionClient
@@ -8,3 +8,23 @@ export const signin = actionClient
     const response = await api.post("/auth/signin", parsedInput);
     return response;
   });
+
+export const createOrder = actionClient
+  .inputSchema(createOrderSchema)
+  .action(async ({ parsedInput }) => {
+    const response = await api.post("/orders", parsedInput);
+    return response.data;
+  });
+
+export const placeOrder = actionClient
+  .inputSchema(initPaymentSchema)
+  .action(async ({ parsedInput }) => {
+    const { orderId } = parsedInput;
+    const response = await api.post("/order/payment/init", { orderId });
+    return response.data;
+  });
+
+export const logout = actionClient.action(async () => {
+  const response = await api.post("/auth/logout");
+  return response.data;
+});

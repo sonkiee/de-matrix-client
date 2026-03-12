@@ -20,8 +20,7 @@ export default function Home() {
         flex flex-col"
       >
         {/* Header */}
-        <SiteHeader darkMode={darkMode} setDarkMode={setDarkMode} />{" "}
-        {/* Hero */}
+        <SiteHeader />
         <HeroSection />
         {/* Services */}
         <StoreServices />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useAllProducts } from "@/queries/products";
+import { useAllProducts } from "@/queries/product";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { ProductCard } from "./ProductCard";
 import { useCategory } from "@/queries/category";
@@ -68,7 +68,7 @@ export function StoreProducts() {
                       product={product}
                       index={index}
                     />
-                  )
+                  ),
                 )}
               </div>
             </TabsContent>

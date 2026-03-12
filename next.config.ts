@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
 
   // cacheComponents: true,
+  // allowedDevOrigins: [],
   reactCompiler: true,
   images: {
     remotePatterns: [

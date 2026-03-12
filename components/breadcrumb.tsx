@@ -2,9 +2,33 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Breadcrumb() {
+export default function Breadcrumbs({
+  items,
+}: {
+  items?: Array<{ label: string; href?: string }>;
+}) {
   const pathname = usePathname();
-  const crumb = pathname
+  let crumb = "";
+  if (items) {
+    crumb = items
+      .map((item) =>
+        item.href ? (
+          <Link
+            key={item.label}
+            href={item.href}
+            className="hover:text-foreground"
+          >
+            {item.label}
+          </Link>
+        ) : (
+          <span key={item.label} className="font-medium text-foreground">
+            {item.label}
+          </span>
+        ),
+      )
+      .reduce((prev, curr) => [prev, " ⟩ ", curr]);
+  }
+  crumb = pathname
     .split("/")
     .filter(Boolean)
     .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))

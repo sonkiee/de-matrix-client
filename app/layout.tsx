@@ -8,6 +8,7 @@ import { AuthProvider } from "@/context/auth-context";
 import { CartIcon } from "@/components/cart-icon";
 import { ReactQueryProvider } from "@/providers/react-query-provider";
 import { Suspense } from "react";
+import { AuthGateListener } from "./(auth)/auth-gate-listener";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -53,6 +54,7 @@ export default function RootLayout({
 
         <Analytics />
         <Toaster position="top-center" duration={3000} />
+        {/* <AuthGateListener /> */}
       </body>
     </html>
   );

@@ -12,7 +12,7 @@ export default function ProductCard({ product }: { product: Product }) {
   const r = useRouter();
   return (
     <Card
-      onClick={() => r.push(`/store/product/${product.id}`)}
+      onClick={() => r.push(`/product/${product.id}`)}
       className="group shadow-none py-0 flex flex-col overflow-hidden rounded-xl border bg-surface-light transition-all duration-300 hover:border-gray-200 hover:shadow-soft dark:bg-surface-dark dark:hover:border-gray-700 "
     >
       {/* Image Section */}
@@ -31,7 +31,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
         <Image
           src="/placeholder.svg"
-          alt={product.title}
+          alt={product?.title ?? "Product Image"}
           width={300}
           height={300}
           className="h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105 dark:mix-blend-normal"
@@ -44,20 +44,21 @@ export default function ProductCard({ product }: { product: Product }) {
           {product.title}
         </h3>
 
-        <p className="mb-4 text-xs text-text-muted-light dark:text-text-muted-dark">
-          {product.brand ?? "Unknown Brand"}
+        <p className="mb-1 text-xs text-text-muted-light dark:text-text-muted-dark">
+          {product?.brand?.name ?? "Unknown Brand"}
         </p>
 
         <div className="mt-auto flex items-end justify-between">
-          <div className="flex flex-col">
-            {product.originalPrice > product.maxPrice && (
-              <span className="text-sm text-text-muted-light line-through dark:text-text-muted-dark">
+          <div className="flex">
+            {product.minPrice !== product.maxPrice ? (
+              <span className="text-lg font-bold text-text-light dark:text-text-dark">
+                {naira(product.minPrice)} – {naira(product.maxPrice)}
+              </span>
+            ) : (
+              <span className="text-lg font-bold text-text-light dark:text-text-dark">
                 {naira(product.minPrice)}
               </span>
             )}
-            <span className="text-xl font-bold text-text-light dark:text-text-dark">
-              {naira(product.maxPrice)}
-            </span>
           </div>
 
           <Button

@@ -1,26 +1,71 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function proxy(req: NextRequest) {
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+
+if (!API_BASE_URL) {
+  throw new Error("API base URL is not defined in environment variables");
+}
+
+async function me(token: string) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/auth/me`, {
+      headers: {
+        Cookie: `access_token=${token}`,
+      },
+      cache: "no-store",
+    });
+
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function proxy(req: NextRequest) {
   const { pathname, search } = req.nextUrl;
-  const token = req.cookies.get("token")?.value;
+  const token = req.cookies.get("access_token")?.value;
+  const user = token ? await me(token) : null;
 
-  const isProtected = pathname.startsWith("/store/account");
-  const isStoreSignIn = pathname === "/store/signin";
+  const isProtected = pathname.startsWith("/account");
+  const isSignIn = pathname === "/signin";
+  const isAdminRoute = pathname.startsWith("/admin");
 
-  if (isProtected && !token) {
-    const loginUrl = req.nextUrl.clone();
-    loginUrl.pathname = "/store/signin";
-    loginUrl.searchParams.set("callbackUrl", `${pathname}${search}`);
+  const loginUrl = req.nextUrl.clone();
+  loginUrl.pathname = "/signin";
+  loginUrl.searchParams.set("callbackUrl", `${pathname}${search}`);
 
+  if (token && !user) {
+    if (isProtected) {
+      const response = NextResponse.redirect(loginUrl);
+      response.cookies.delete("access_token");
+      return response;
+    }
+  }
+
+  if (isProtected && !user) {
     const res = NextResponse.redirect(loginUrl);
-    res.cookies.delete("token");
+    res.cookies.delete("access_token");
     return res;
   }
 
-  if (isStoreSignIn && token) {
+  if (isAdminRoute && user?.role !== "admin") {
+    console.warn(
+      `Unauthorized admin access attempt by user:`,
+      user?.id || "Guest",
+    );
+
+    // Kick them to the store or home page instead of letting the request proceed
     const homeUrl = req.nextUrl.clone();
-    homeUrl.pathname = "/store";
+    homeUrl.pathname = "/account";
+    homeUrl.search = "";
+    return NextResponse.redirect(homeUrl);
+  }
+
+  if (isSignIn && user) {
+    const homeUrl = req.nextUrl.clone();
+    homeUrl.pathname = "/account";
     homeUrl.search = "";
     return NextResponse.redirect(homeUrl);
   }
@@ -29,5 +74,5 @@ export function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/store/:path*"],
+  matcher: ["/account/:path*", "/signin", "/admin/:path*"],
 };

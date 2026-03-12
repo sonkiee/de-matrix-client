@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
-import { useFeatured } from "@/queries/products";
+import { useFeatured } from "@/queries/product";
 import { naira } from "@/utils/naira";
 import { cn } from "@/lib/utils"; // if you have it, else remove
 

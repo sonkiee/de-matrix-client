@@ -3,9 +3,9 @@
 import { api } from "@/services/axios";
 import { useQuery } from "@tanstack/react-query";
 
-export const useUser = () => {
+export const useFetchUserProfile = () => {
   return useQuery({
-    queryKey: ["user"],
+    queryKey: ["user-profile"],
     queryFn: async () => {
       const response = await api.get("/user/profile");
       return response.data;

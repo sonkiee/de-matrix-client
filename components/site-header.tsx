@@ -1,31 +1,30 @@
 "use client";
 
-import { Menu, X, Search, ShoppingBag } from "lucide-react";
-import { Button } from "./ui/button";
+import { Menu, X, Search } from "lucide-react";
+
+import { Button, buttonVariants } from "./ui/button";
 import { useState } from "react";
 import { useMobile } from "@/hooks/use-mobile";
 import { MobileNavLink } from "./mobile-nav-link";
 import Link from "next/link";
-import { FaShoppingBag } from "react-icons/fa";
+import { FaShoppingBag, FaUser } from "react-icons/fa";
+import { useCartStore } from "@/store/cart";
 
-type SiteHeaderProps = {
-  darkMode: boolean;
-  setDarkMode: (value: boolean) => void;
-};
-
-export function SiteHeader({ darkMode, setDarkMode }: SiteHeaderProps) {
+export function SiteHeader({}) {
   const isMobile = useMobile();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { items } = useCartStore();
 
   const toggleMenu = () => setIsMenuOpen((v) => !v);
 
   const navLinks = [
-    { label: "Store", href: "/shop" },
-    { label: "iPhones", href: "/shop/iphones" },
-    { label: "Samsung", href: "/shop/samsung" },
-    { label: "iPads", href: "/shop/ipads" },
+    // { label: "Store", href: "/store" },
+    { label: "Smartphone", href: "/products/smartphone" },
+    { label: "iPhone", href: "/products/iphone" },
+    { label: "Samsung", href: "/products/samsung" },
+    { label: "iPad", href: "/products/ipad" },
+    { label: "Accessories", href: "/products/accessories" },
     { label: "Repairs", href: "/services/repairs" },
-    { label: "Accessories", href: "/shop/accessories" },
   ];
 
   return (
@@ -36,7 +35,7 @@ export function SiteHeader({ darkMode, setDarkMode }: SiteHeaderProps) {
           href="/"
           className="text-lg font-semibold text-gray-900 dark:text-white"
         >
-          <span className="text-blue-600 dark:text-blue-400">Dematrix</span>
+          <span className="text-gray-700 dark:text-blue-400">Dematrix</span>
         </Link>
 
         {/* Desktop nav */}
@@ -62,13 +61,32 @@ export function SiteHeader({ darkMode, setDarkMode }: SiteHeaderProps) {
             <Search className="h-4 w-4 text-gray-700 dark:text-gray-200" />
           </button>
 
-          {/* Cart */}
-          <button
-            className="h-9 w-9 rounded-full grid place-items-center hover:bg-gray-100 dark:hover:bg-white/10 transition"
+          <Link
             aria-label="Cart"
+            href="/cart"
+            className={
+              buttonVariants({ variant: "ghost", size: "icon" }) +
+              " relative h-9 w-9 rounded-full grid place-items-center hover:bg-gray-100 dark:hover:bg-white/10 transition"
+            }
           >
-            <FaShoppingBag className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-          </button>
+            <FaShoppingBag className="h-4 w-4  text-gray-700 dark:text-gray-200" />
+
+            {items.length > 0 && (
+              <span className="absolute -top-1 -right-1 inline-flex h-4 min-w-4 px-1 items-center justify-center rounded-full bg-blue-600 text-[10px] text-white">
+                {items.length}
+              </span>
+            )}
+          </Link>
+
+          <Link
+            href="/account"
+            className={
+              buttonVariants({ variant: "ghost", size: "icon" }) +
+              " rounded-full"
+            }
+          >
+            <FaUser className="h-4 w-4 text-gray-700 dark:text-gray-200" />
+          </Link>
 
           {/* Dark mode toggle (optional, since you passed props) */}
           {/* If you want it visible, uncomment: */}
