@@ -1,11 +1,31 @@
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 export default function AdminDashboard() {
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
-      <p>
-        Welcome to the admin dashboard! Here you can manage products, orders,
-        and more.
-      </p>
+    <div className="grid gap-4 md:grid-cols-3">
+      <Card>
+        <CardHeader>
+          <CardTitle>Total Orders</CardTitle>
+        </CardHeader>
+
+        <CardContent>245</CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Total Revenue</CardTitle>
+        </CardHeader>
+
+        <CardContent>$12,430</CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Products</CardTitle>
+        </CardHeader>
+
+        <CardContent>87</CardContent>
+      </Card>
     </div>
   );
 }
