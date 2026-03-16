@@ -1,9 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useParams } from "next/navigation";
-import { ChevronRight, FilterIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +17,6 @@ import ProductCard from "@/components/product-card";
 import { useListProducts } from "@/queries/product";
 import type { Product } from "@/types";
 import Breadcrumb from "@/components/breadcrumb";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 type SortKey = "featured" | "price-low" | "price-high" | "newest" | "rating";
 
