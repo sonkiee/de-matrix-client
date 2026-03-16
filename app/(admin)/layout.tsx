@@ -16,10 +16,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex h-screen">
       <AdminSidebar />
-
       <div className="flex flex-col flex-1">
         <AdminHeader />
-
         <main className="p-6 overflow-auto">{children}</main>
       </div>
     </div>

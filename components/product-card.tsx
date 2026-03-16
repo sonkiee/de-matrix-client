@@ -29,9 +29,8 @@ export default function ProductCard({ product }: { product: Product }) {
             {product.discount}% OFF
           </Badge>
         )}
-
         <Image
-          src={product?.images?.[0]?.url ?? "/placeholder.svg"}
+          src={product?.images?.[0]?.url || "/placeholder.svg"}
           alt={product?.title ?? "Product Image"}
           width={300}
           height={300}
