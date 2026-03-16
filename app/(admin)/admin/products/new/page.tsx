@@ -21,6 +21,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { createProductSchema, CreateProductData } from "@/schema";
 import { Button } from "@/components/ui/button";
+import { useAction } from "next-safe-action/hooks";
+import { createProduct } from "@/actions/admin";
+import { useListBrands, useListCategories } from "@/queries/admin";
+import { toast } from "sonner";
+import { useRef, useState } from "react";
+import Image from "next/image";
+import FileUploadThing from "@/components/file-upload-thing";
 
 export default function CreateProduct() {
   const form = useForm<CreateProductData>({
@@ -38,6 +45,7 @@ export default function CreateProduct() {
       isFeatured: false,
       isBestSeller: false,
       isNewArrival: false,
+      files: [],
       variants: [
         {
           sku: "",
@@ -58,9 +66,39 @@ export default function CreateProduct() {
     name: "variants",
   });
 
+  const { execute } = useAction(createProduct, {
+    onSuccess: (response) => {
+      console.log("Product created successfully:", response);
+      toast.success("Product created successfully!");
+    },
+    onError: (error) => {
+      if (error.error.serverError) {
+        const serverError = error.error.serverError;
+        console.error("Error creating product:", serverError);
+        toast.error(
+          serverError ?? "An error occurred while creating the product.",
+        );
+      }
+
+      if (error.error.validationErrors) {
+        const validationErrors = error.error.validationErrors;
+        console.error("Validation errors:", validationErrors);
+        // toast.error("Validation errors occurred while creating the product.");
+      }
+    },
+  });
+
+  const { data: brands } = useListBrands();
+  const { data: categories } = useListCategories();
+
+  console.log("Brands:", brands);
+  console.log("Categories:", categories);
+
   const handleFormSubmit = (data: CreateProductData) => {
     console.log("Product submitted:", data);
-    alert("Check console for submitted data.");
+
+    execute(data);
+    // alert("Check console for submitted data.");
   };
 
   return (
@@ -215,10 +253,11 @@ export default function CreateProduct() {
                             <SelectValue placeholder="Select Category" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="ceramics">Ceramics</SelectItem>
-                            <SelectItem value="furniture">Furniture</SelectItem>
-                            <SelectItem value="lighting">Lighting</SelectItem>
-                            <SelectItem value="textiles">Textiles</SelectItem>
+                            {categories?.map((category) => (
+                              <SelectItem key={category.id} value={category.id}>
+                                {category.name}
+                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                       )}
@@ -246,8 +285,11 @@ export default function CreateProduct() {
                             <SelectValue placeholder="Select Brand" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="brandA">Brand A</SelectItem>
-                            <SelectItem value="brandB">Brand B</SelectItem>
+                            {brands?.map((brand) => (
+                              <SelectItem key={brand.id} value={brand.id}>
+                                {brand.name}
+                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                       )}
@@ -298,11 +340,29 @@ export default function CreateProduct() {
                   control={form.control}
                   name={`variants.${index}.condition`}
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="flex-1">
                       <FormLabel>Condition</FormLabel>
-                      <FormControl>
-                        <Input placeholder="New / Used" {...field} />
-                      </FormControl>
+                      <Controller
+                        control={form.control}
+                        name={`variants.${index}.condition`}
+                        render={({ field }) => (
+                          <Select
+                            onValueChange={field.onChange}
+                            value={field.value}
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Select Condition" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {["new", "used"].map((condition) => (
+                                <SelectItem key={condition} value={condition}>
+                                  {condition}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -350,6 +410,20 @@ export default function CreateProduct() {
                   )}
                 />
 
+                <FormField
+                  control={form.control}
+                  name={`variants.${index}.storage`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Storage</FormLabel>
+                      <FormControl>
+                        <Input placeholder="128" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
                 <div className="flex items-end gap-2">
                   <button
                     type="button"
@@ -372,9 +446,9 @@ export default function CreateProduct() {
                   condition: "",
                   storage: undefined,
                   color: "",
-                  price: 0,
+                  price: "",
                   compareAtPrice: undefined,
-                  stockQty: 0,
+                  stockQty: "",
                   isActive: true,
                 })
               }
@@ -382,6 +456,33 @@ export default function CreateProduct() {
               Add Variant
             </Button>
           </section>
+
+          <section className="space-y-6">
+            <div className="border-b border-slate-200 pb-2">
+              <h2 className="text-sm font-semibold text-slate-800 uppercase tracking-wide">
+                Product Media
+              </h2>
+            </div>
+
+            <FormField
+              control={form.control}
+              name="files"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Files</FormLabel>
+                  <FormControl>
+                    <FileUploadThing
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      value={field.value}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </section>
+
           {/* Actions */}
           <footer className="pt-8 flex items-center justify-end gap-4 border-t border-slate-200">
             <Button

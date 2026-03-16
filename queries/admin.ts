@@ -1,4 +1,4 @@
-import { api } from "@/services/axios";
+import { api } from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 
 export const useFetchOrders = () => {
@@ -16,6 +16,26 @@ export const useListPayments = () => {
     queryKey: ["payments"],
     queryFn: async () => {
       const response = await api.get("/admin/payments");
+      return response.data;
+    },
+  });
+};
+
+export const useListCategories = () => {
+  return useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const response = await api.get("/admin/categories");
+      return response.data;
+    },
+  });
+};
+
+export const useListBrands = () => {
+  return useQuery({
+    queryKey: ["brands"],
+    queryFn: async () => {
+      const response = await api.get("/admin/brands");
       return response.data;
     },
   });

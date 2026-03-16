@@ -1,6 +1,6 @@
 "use client";
 
-import { api } from "@/services/axios";
+import { api } from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 
 export const useFetchCategory = () => {

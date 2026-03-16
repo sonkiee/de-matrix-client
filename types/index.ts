@@ -20,7 +20,7 @@ export type ProductVariant = {
   condition: "new" | "used" | "nigerian_used" | "refurbished";
   storage?: number | null;
   color?: string | null;
-  price: string; // numeric -> string
+  price: number; // numeric -> string
   compareAtPrice?: string | null;
   stockQty: number;
   isActive: boolean;
@@ -32,7 +32,7 @@ export type Product = {
   slug: string;
   description?: string | null;
 
-  specs?: Record<string, any> | null;
+  specs?: Record<string, string | number> | null;
 
   minPrice?: string | null;
   maxPrice?: string | null;

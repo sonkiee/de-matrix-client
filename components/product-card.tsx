@@ -7,6 +7,7 @@ import { Product } from "@/types";
 import { naira } from "@/utils/naira";
 import { use } from "react";
 import { useRouter } from "next/navigation";
+import { images } from "@/constants";
 
 export default function ProductCard({ product }: { product: Product }) {
   const r = useRouter();
@@ -30,7 +31,7 @@ export default function ProductCard({ product }: { product: Product }) {
         )}
 
         <Image
-          src="/placeholder.svg"
+          src={product?.images?.[0]?.url ?? "/placeholder.svg"}
           alt={product?.title ?? "Product Image"}
           width={300}
           height={300}
@@ -52,11 +53,11 @@ export default function ProductCard({ product }: { product: Product }) {
           <div className="flex">
             {product.minPrice !== product.maxPrice ? (
               <span className="text-lg font-bold text-text-light dark:text-text-dark">
-                {naira(product.minPrice)} – {naira(product.maxPrice)}
+                {naira(product?.minPrice)} – {naira(product?.maxPrice)}
               </span>
             ) : (
               <span className="text-lg font-bold text-text-light dark:text-text-dark">
-                {naira(product.minPrice)}
+                {naira(product?.minPrice)}
               </span>
             )}
           </div>

@@ -1,8 +1,33 @@
+import path from "path/win32";
 import * as z from "zod";
+import { fi } from "zod/v4/locales";
 
 export const signinSchema = z.object({
   email: z.email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+export const signupSchema = z
+  .object({
+    firstName: z.string().min(1, "First name is required"),
+    lastName: z.string().min(1, "Last name is required"),
+    email: z.email("Invalid email address"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
+    consent: z.boolean().refine((val) => val === true, {
+      message: "You must agree to the terms and conditions",
+      path: ["consent"],
+    }),
+    confirmPassword: z
+      .string("Confirm password is required")
+      .min(6, "Confirm password must be at least 6 characters"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"], // Set the error on the confirmPassword field
+  });
+
+export const productImageSchema = z.object({
+  file: z.instanceof(File),
 });
 
 export const productVariantSchema = z.object({
@@ -10,25 +35,22 @@ export const productVariantSchema = z.object({
 
   condition: z.string().min(1, "Condition is required"),
 
-  storage: z
+  storage: z.coerce
     .number()
-    .int("Storage must be a whole number")
-    .positive("Storage must be a positive number")
+    .min(0, "Storage must be a whole number")
+    // .positive("Storage must be a positive number")
     .optional(),
 
   color: z.string().max(60, "Color cannot exceed 60 characters").optional(),
 
-  price: z.number().min(0, "Price must be a positive number"),
+  price: z.coerce.number().positive("Price must be a positive number"),
 
-  compareAtPrice: z
+  compareAtPrice: z.coerce
     .number()
-    .min(0, "Compare price must be positive")
+    .positive("Compare price must be positive")
     .optional(),
 
-  stockQty: z
-    .number()
-    .int("Stock quantity must be a whole number")
-    .min(0, "Stock quantity cannot be negative"),
+  stockQty: z.coerce.number().int().min(0, "Stock must be ≥ 0"),
 
   isActive: z.boolean().optional(),
 });
@@ -44,9 +66,9 @@ export const createProductSchema = z.object({
     .min(1, "Slug is required")
     .max(220, "Slug cannot exceed 220 characters"),
 
-  categoryId: z.string().uuid("Invalid category ID"),
+  categoryId: z.uuid("Invalid category ID"),
 
-  brandId: z.string().uuid("Invalid brand ID").optional(),
+  brandId: z.uuid("Invalid brand ID").optional(),
 
   model: z.string().max(160, "Model cannot exceed 160 characters").optional(),
 
@@ -60,6 +82,10 @@ export const createProductSchema = z.object({
   isFeatured: z.boolean().optional(),
   isBestSeller: z.boolean().optional(),
   isNewArrival: z.boolean().optional(),
+
+  files: z
+    .array(z.instanceof(File))
+    .min(1, "At least one product image is required"),
 
   variants: z
     .array(productVariantSchema)
@@ -118,8 +144,10 @@ export const updatePasswordSchema = z.object({
 export type ProfileData = z.infer<typeof profileSchema>;
 export type UpdatePasswordData = z.infer<typeof updatePasswordSchema>;
 
-export type CreateProductData = z.infer<typeof createProductSchema>;
+export type CreateProductData = z.input<typeof createProductSchema>;
 export type ProductVariantData = z.infer<typeof productVariantSchema>;
 export type SigninData = z.infer<typeof signinSchema>;
+export type SignupData = z.infer<typeof signupSchema>;
+
 export type ShippingData = z.infer<typeof shippingSchema>;
 export type CreateOrderData = z.infer<typeof createOrderSchema>;

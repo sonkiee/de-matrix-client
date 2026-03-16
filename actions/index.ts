@@ -1,11 +1,23 @@
 import { actionClient } from "@/lib/safe-action";
-import { createOrderSchema, initPaymentSchema, signinSchema } from "@/schema";
-import { api } from "@/services/axios";
+import {
+  createOrderSchema,
+  initPaymentSchema,
+  signinSchema,
+  signupSchema,
+} from "@/schema";
+import { api } from "@/lib/axios";
 
 export const signin = actionClient
   .inputSchema(signinSchema)
   .action(async ({ parsedInput }) => {
     const response = await api.post("/auth/signin", parsedInput);
+    return response;
+  });
+
+export const signup = actionClient
+  .inputSchema(signupSchema)
+  .action(async ({ parsedInput }) => {
+    const response = await api.post("/auth/signup", parsedInput);
     return response;
   });
 

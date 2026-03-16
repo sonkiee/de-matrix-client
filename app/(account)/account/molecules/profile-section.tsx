@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useFetchUserProfile } from "@/queries/user";
 import { ProfileData, profileSchema } from "@/schema";
+import { date } from "@/utils/date";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Edit, Eye, EyeOff } from "lucide-react";
 import React, { useEffect } from "react";
@@ -91,7 +92,7 @@ const ProfileSection = ({
               </h2>
               <p className="text-sm text-muted-foreground">{data?.email}</p>
               <p className="text-sm text-muted-foreground">
-                Member since {data?.createdAt?.toLocaleString("en-US")}
+                Member since {date(data?.createdAt)}
               </p>
             </div>
             <div className="ml-auto">

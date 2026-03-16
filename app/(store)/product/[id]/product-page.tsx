@@ -65,9 +65,7 @@ export default function ProductPage() {
             <div className="space-y-4">
               <div className="overflow-hidden rounded-lg border">
                 <Image
-                  src={`/placeholder.svg?height=600&width=600&text=${encodeURIComponent(
-                    product?.title ?? "Product",
-                  )}`}
+                  src={product?.images?.[0]?.url ?? "/placeholder.svg"}
                   alt={product?.title ?? "Product"}
                   width={600}
                   height={500}
@@ -78,10 +76,8 @@ export default function ProductPage() {
                 {[...Array(4)].map((_, i) => (
                   <div key={i} className="overflow-hidden rounded-lg border">
                     <Image
-                      src={`/placeholder.svg?height=150&width=150&text=${encodeURIComponent(
-                        `View ${i + 1}`,
-                      )}`}
-                      alt={`${product.name} view ${i + 1}`}
+                      src={product?.images?.[i]?.url ?? "/placeholder.svg"}
+                      alt={`${product?.title} view ${i + 1}`}
                       width={150}
                       height={150}
                       className="h-full w-full object-cover"

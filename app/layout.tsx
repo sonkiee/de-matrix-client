@@ -2,13 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
-import { CartProvider } from "@/context/cart-context";
 import { Toaster } from "@/components/ui/sonner";
-import { AuthProvider } from "@/context/auth-context";
-import { CartIcon } from "@/components/cart-icon";
+// import { CartIcon } from "@/components/cart-icon";
 import { ReactQueryProvider } from "@/providers/react-query-provider";
 import { Suspense } from "react";
-import { AuthGateListener } from "./(auth)/auth-gate-listener";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,22 +32,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthProvider>
-          <CartProvider>
-            <ReactQueryProvider>
-              <Suspense
-                fallback={
-                  <div className="fixed top-4 right-4">
-                    <CartIcon />
-                  </div>
-                }
-              >
-                {children}
-                <CartIcon />
-              </Suspense>
-            </ReactQueryProvider>
-          </CartProvider>
-        </AuthProvider>
+        <ReactQueryProvider>
+          <Suspense
+            fallback={
+              <div className="fixed top-4 right-4">{/* <CartIcon /> */}</div>
+            }
+          >
+            {children}
+            {/* <CartIcon /> */}
+          </Suspense>
+        </ReactQueryProvider>
 
         <Analytics />
         <Toaster position="top-center" duration={3000} />
