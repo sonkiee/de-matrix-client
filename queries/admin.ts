@@ -61,11 +61,33 @@ export const useListProducts = () => {
   });
 };
 
+export const useGetUserById = (userId: string) => {
+  return useQuery({
+    queryKey: ["user", userId],
+    queryFn: async () => {
+      const response = await api.get(`/admin/users/${userId}`);
+      return response.data;
+    },
+    enabled: !!userId, // optional but useful to avoid firing when ID is not yet available
+  });
+};
+
+export const useGetPaymentById = (paymentId: string) => {
+  return useQuery({
+    queryKey: ["payment", paymentId],
+    queryFn: async () => {
+      const response = await api.get(`/admin/payments/${paymentId}`);
+      return response.data;
+    },
+    enabled: !!paymentId, // optional but useful to avoid firing when ID is not yet available
+  });
+};
+
 export const useGetOrderDetails = (orderId: string) => {
   return useQuery({
-    queryKey: ["user", "orderHistoryDetail", orderId],
+    queryKey: ["order-details", orderId],
     queryFn: async () => {
-      const response = await api.get(`/user/order/${orderId}`);
+      const response = await api.get(`/admin/orders/${orderId}`);
       return response.data;
     },
     enabled: !!orderId, // optional but useful to avoid firing when ID is not yet available

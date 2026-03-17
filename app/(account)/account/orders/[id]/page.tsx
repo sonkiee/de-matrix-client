@@ -37,12 +37,18 @@ const DUMMY_ORDER: OrderDetails = {
   paymentMethod: "Card",
   products: [
     {
+      id: 1,
+      name: "iPhone 13",
+      imageUrl: "https://example.com/iphone13.jpg",
       product: "prod_1",
       quantity: 1,
       price: 24999,
       variant: { id: "var_1", name: "iPhone 13 • 128GB • Midnight" } as any,
     },
     {
+      id: 2,
+      name: "USB-C Fast Charger",
+      imageUrl: "https://example.com/charger.jpg",
       product: "prod_2",
       quantity: 2,
       price: 7999,

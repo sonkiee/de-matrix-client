@@ -1,10 +1,9 @@
 export type User = {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   role: string;
-  address: string;
-  //   orders: Order[];
 };
 
 export type AuthContextType = {
@@ -34,8 +33,8 @@ export type Product = {
 
   specs?: Record<string, string | number> | null;
 
-  minPrice?: string | null;
-  maxPrice?: string | null;
+  minPrice?: number | undefined;
+  maxPrice?: number | undefined;
   inStock: boolean;
 
   brand: { id: string; name: string };

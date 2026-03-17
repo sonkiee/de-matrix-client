@@ -11,6 +11,9 @@ import {
 } from "../../molecules/table";
 import { useFetchOrders } from "@/queries/admin";
 import { naira } from "@/utils/naira";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import StatusBadge from "../../molecules/status";
 
 export default function OrdersTable() {
   const { data, isLoading, error } = useFetchOrders();
@@ -43,11 +46,17 @@ export default function OrdersTable() {
                 {new Date(order.createdAt).toLocaleDateString()}
               </TableCell>
               <TableCell>
-                <span className="inline-flex rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
-                  {order.status}
-                </span>
+                <StatusBadge status={order.status} />
               </TableCell>
               <TableCell>{naira(order.total)}</TableCell>
+              <TableCell>
+                <Link
+                  href={`/admin/orders/${order.id}`}
+                  className={buttonVariants({ variant: "default", size: "sm" })}
+                >
+                  View
+                </Link>
+              </TableCell>
             </TableRow>
           ))}
           {/* </TableRow> */}

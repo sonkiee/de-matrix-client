@@ -11,6 +11,10 @@ import {
 } from "../../molecules/table";
 import { useListUsers } from "@/queries/admin";
 import Person from "./person";
+import { User } from "@/types";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import StatusBadge from "../../molecules/status";
 
 export default function CustomersTable() {
   const { data, isLoading, error } = useListUsers();
@@ -32,7 +36,7 @@ export default function CustomersTable() {
         </TableHeader>
 
         <TableBody>
-          {users.map((user: any) => (
+          {users.map((user: User & { id: string }) => (
             <TableRow key={user.id}>
               <TableCell className="px-6 py-4 font-medium text-gray-900">
                 <Person
@@ -45,9 +49,16 @@ export default function CustomersTable() {
               <TableCell>10</TableCell>
               <TableCell>$100.00</TableCell>
               <TableCell>
-                <span className="inline-flex rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
-                  Active
-                </span>
+                <StatusBadge status={user?.status ?? "active"} />
+              </TableCell>
+
+              <TableCell>
+                <Link
+                  href={`/admin/customers/${user.id}`}
+                  className={buttonVariants({ variant: "default", size: "sm" })}
+                >
+                  View
+                </Link>
               </TableCell>
             </TableRow>
           ))}

@@ -1,9 +1,9 @@
 import { api } from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 
-export const useFetchOrders = () => {
+export const useFetchUserOrders = () => {
   return useQuery({
-    queryKey: ["orders"],
+    queryKey: ["user-orders"],
     queryFn: async () => {
       const response = await api.get("/orders");
       return response.data;
@@ -11,9 +11,9 @@ export const useFetchOrders = () => {
   });
 };
 
-export const useGetOrderDetails = (orderId: string) => {
+export const useGetUserOrderDetails = (orderId: string) => {
   return useQuery({
-    queryKey: ["user", "orderHistoryDetail", orderId],
+    queryKey: ["user-orders", orderId],
     queryFn: async () => {
       const response = await api.get(`/user/order/${orderId}`);
       return response.data;

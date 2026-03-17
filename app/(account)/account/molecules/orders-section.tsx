@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { useFetchOrders } from "@/queries";
+import { useFetchUserOrders } from "@/queries";
 import { Order } from "@/types";
 import { naira } from "@/utils/naira";
 import Image from "next/image";
@@ -20,7 +20,7 @@ import OrderItem from "../orders/molecules/order-item";
 
 const OrdersSection = ({ activeTab }: { activeTab: string }) => {
   const router = useRouter();
-  const { data, isLoading } = useFetchOrders();
+  const { data, isLoading } = useFetchUserOrders();
   const orders = data?.data as Order[] | undefined;
 
   console.log("Orders fetched", orders?.length);

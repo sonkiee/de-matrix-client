@@ -11,6 +11,9 @@ import {
 } from "../../molecules/table";
 import { useListPayments } from "@/queries/admin";
 import { date } from "@/utils/date";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import StatusBadge from "../../molecules/status";
 
 export default function PaymentsTable() {
   const { data, isLoading, error } = useListPayments();
@@ -41,9 +44,15 @@ export default function PaymentsTable() {
               <TableCell>{date(payment.createdAt)}</TableCell>
               <TableCell className="text-xs">{payment.amount}</TableCell>
               <TableCell>
-                <span className="inline-flex rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
-                  {payment.status}
-                </span>
+                <StatusBadge status={payment.status} />
+              </TableCell>
+              <TableCell>
+                <Link
+                  href={`/admin/payments/${payment.id}`}
+                  className={buttonVariants({ variant: "default", size: "sm" })}
+                >
+                  View
+                </Link>
               </TableCell>
             </TableRow>
           ))}

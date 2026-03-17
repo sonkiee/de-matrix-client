@@ -52,11 +52,12 @@ export default function ProductCard({ product }: { product: Product }) {
           <div className="flex">
             {product.minPrice !== product.maxPrice ? (
               <span className="text-lg font-bold text-text-light dark:text-text-dark">
-                {naira(product?.minPrice)} – {naira(product?.maxPrice)}
+                {naira(product?.minPrice ?? 0)} –{" "}
+                {naira(product?.maxPrice ?? 0)}
               </span>
             ) : (
               <span className="text-lg font-bold text-text-light dark:text-text-dark">
-                {naira(product?.minPrice)}
+                {naira(product?.minPrice ?? 0)}
               </span>
             )}
           </div>

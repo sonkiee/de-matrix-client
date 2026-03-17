@@ -40,10 +40,10 @@ const Payment = ({ setStep }: { setStep: (step: string) => void }) => {
     return;
   }
 
-  const pay = (accessCode: number) => {
-    const paystack = new Paystack(process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY);
+  const pay = (accessCode: string) => {
+    const paystack = new Paystack();
     paystack.resumeTransaction(accessCode, {
-      key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+      // key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
       onCancel: () => {
         router.push(
           `/checkout/verify?reason=cancelled&orderId=${encodeURIComponent(orderId ?? "")}`,

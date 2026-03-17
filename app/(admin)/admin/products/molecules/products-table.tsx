@@ -14,6 +14,8 @@ import StatusBadge from "../../molecules/status";
 import { useListProducts } from "@/queries/admin";
 import Prdt from "./prdt";
 import { naira } from "@/utils/naira";
+import { Button, buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function ProductsTable() {
   const { data, isLoading, error } = useListProducts();
@@ -47,6 +49,15 @@ export default function ProductsTable() {
               </TableCell>
               <TableCell>
                 {/* <StatusBadge status={product.isActive} /> */}
+                <p>hello</p>
+              </TableCell>
+              <TableCell>
+                <Link
+                  href={`/admin/products/${product.id}`}
+                  className={buttonVariants({ variant: "default", size: "sm" })}
+                >
+                  View
+                </Link>
               </TableCell>
             </TableRow>
           ))}

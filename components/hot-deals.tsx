@@ -6,7 +6,7 @@ import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { useFeatured } from "@/queries/product";
 import { naira } from "@/utils/naira";
-import { cn } from "@/lib/utils"; // if you have it, else remove
+// if you have it, else remove
 
 type Product = {
   id: string;

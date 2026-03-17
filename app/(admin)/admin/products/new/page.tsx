@@ -253,11 +253,16 @@ export default function CreateProduct() {
                             <SelectValue placeholder="Select Category" />
                           </SelectTrigger>
                           <SelectContent>
-                            {categories?.map((category) => (
-                              <SelectItem key={category.id} value={category.id}>
-                                {category.name}
-                              </SelectItem>
-                            ))}
+                            {categories?.map(
+                              (category: { id: string; name: string }) => (
+                                <SelectItem
+                                  key={category.id}
+                                  value={category.id}
+                                >
+                                  {category.name}
+                                </SelectItem>
+                              ),
+                            )}
                           </SelectContent>
                         </Select>
                       )}
@@ -285,11 +290,13 @@ export default function CreateProduct() {
                             <SelectValue placeholder="Select Brand" />
                           </SelectTrigger>
                           <SelectContent>
-                            {brands?.map((brand) => (
-                              <SelectItem key={brand.id} value={brand.id}>
-                                {brand.name}
-                              </SelectItem>
-                            ))}
+                            {brands?.map(
+                              (brand: { id: string; name: string }) => (
+                                <SelectItem key={brand.id} value={brand.id}>
+                                  {brand.name}
+                                </SelectItem>
+                              ),
+                            )}
                           </SelectContent>
                         </Select>
                       )}
@@ -375,7 +382,14 @@ export default function CreateProduct() {
                     <FormItem>
                       <FormLabel>Price</FormLabel>
                       <FormControl>
-                        <Input type="number" placeholder="0.00" {...field} />
+                        <Input
+                          type="number"
+                          placeholder="0.00"
+                          // value={field.value ?? ""}
+                          onChange={(e) =>
+                            field.onChange(Number(e.target.value))
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -389,7 +403,13 @@ export default function CreateProduct() {
                     <FormItem>
                       <FormLabel>Stock Qty</FormLabel>
                       <FormControl>
-                        <Input type="number" placeholder="0" {...field} />
+                        <Input
+                          type="number"
+                          placeholder="0"
+                          onChange={(e) =>
+                            field.onChange(Number(e.target.value))
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -417,7 +437,12 @@ export default function CreateProduct() {
                     <FormItem>
                       <FormLabel>Storage</FormLabel>
                       <FormControl>
-                        <Input placeholder="128" {...field} />
+                        <Input
+                          placeholder="128"
+                          onChange={(e) =>
+                            field.onChange(Number(e.target.value))
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
