@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 if (!API_BASE_URL) {
   throw new Error("API base URL is not defined in environment variables");
@@ -10,6 +10,7 @@ if (!API_BASE_URL) {
 async function me(token: string) {
   try {
     const res = await fetch(`${API_BASE_URL}/auth/me`, {
+      credentials: "include",
       headers: {
         Cookie: `access_token=${token}`,
       },
