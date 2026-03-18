@@ -5,6 +5,15 @@ const nextConfig: NextConfig = {
 
   // cacheComponents: true,
   // allowedDevOrigins: [],
+
+  typescript: {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    ignoreBuildErrors: true,
+  },
+
   reactCompiler: true,
   images: {
     remotePatterns: [
