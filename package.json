@@ -30,6 +30,7 @@
     "babel-plugin-react-compiler": "^1.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "jsonwebtoken": "^9.0.3",
     "lucide-react": "^0.487.0",
     "motion": "^12.6.5",
     "next": "16.1.6",
@@ -50,6 +51,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
     "@tanstack/eslint-plugin-query": "^5.73.3",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20",
     "@types/paystack__inline-js": "^1.0.2",
     "@types/react": "19.2.13",

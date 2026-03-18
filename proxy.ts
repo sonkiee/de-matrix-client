@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import jwt from "jsonwebtoken";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 if (!API_BASE_URL) {
   throw new Error("API base URL is not defined in environment variables");
@@ -24,7 +26,15 @@ async function me(token: string) {
 export async function proxy(req: NextRequest) {
   const { pathname, search } = req.nextUrl;
   const token = req.cookies.get("access_token")?.value;
-  const user = token ? await me(token) : null;
+  let user = null;
+
+  if (token) {
+    try {
+      user = jwt.verify(token, JWT_SECRET!) as { id: string; role: string };
+    } catch (error) {
+      user = null;
+    }
+  }
 
   const isProtected = pathname.startsWith("/account");
   const isSignIn = pathname === "/signin";
