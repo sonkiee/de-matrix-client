@@ -6,8 +6,15 @@ import { Filter as FilterIcon } from "lucide-react";
 import { useParams } from "next/navigation";
 import FilterContent from "./filter-content";
 import FilterMobile from "./filter-mobile";
+import { ProductFilter } from "@/types";
 
-export default function Filter(props: { filter; setFilter }) {
+export default function Filter({
+  filter,
+  setFilter,
+}: {
+  filter: ProductFilter;
+  setFilter: React.Dispatch<React.SetStateAction<ProductFilter>>;
+}) {
   const params = useParams();
   const slug = params.category as string;
   console.log("Filter slug:", slug);
@@ -15,11 +22,11 @@ export default function Filter(props: { filter; setFilter }) {
     <div className="space-y-6">
       <div className="flex items-center justify-between lg:hidden">
         <h2 className="font-semibold">Filters</h2>
-        <FilterMobile slug={slug} />
+        <FilterMobile {...{ filter, setFilter }} slug={slug} />
       </div>
 
       <div className="hidden lg:block">
-        <FilterContent {...props} slug={slug} />
+        <FilterContent {...{ filter, setFilter }} slug={slug} />
       </div>
     </div>
   );

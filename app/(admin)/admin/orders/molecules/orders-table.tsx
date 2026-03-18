@@ -13,7 +13,7 @@ import { useFetchOrders } from "@/queries/admin";
 import { naira } from "@/utils/naira";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import StatusBadge from "../../molecules/status";
+import StatusBadge, { OrderStatus } from "../../molecules/status";
 
 export default function OrdersTable() {
   const { data, isLoading, error } = useFetchOrders();
@@ -36,29 +36,40 @@ export default function OrdersTable() {
 
         <TableBody>
           {/* <TableRow> */}
-          {orders?.map((order: any) => (
-            <TableRow key={order.id}>
-              <TableCell className="px-6 py-4 font-medium text-gray-900">
-                {order.id}
-              </TableCell>
-              <TableCell>{order.user?.firstName}</TableCell>
-              <TableCell>
-                {new Date(order.createdAt).toLocaleDateString()}
-              </TableCell>
-              <TableCell>
-                <StatusBadge status={order.status} />
-              </TableCell>
-              <TableCell>{naira(order.total)}</TableCell>
-              <TableCell>
-                <Link
-                  href={`/admin/orders/${order.id}`}
-                  className={buttonVariants({ variant: "default", size: "sm" })}
-                >
-                  View
-                </Link>
-              </TableCell>
-            </TableRow>
-          ))}
+          {orders?.map(
+            (order: {
+              id?: string;
+              user?: { firstName?: string };
+              createdAt?: string;
+              status?: OrderStatus;
+              total?: number;
+            }) => (
+              <TableRow key={order.id}>
+                <TableCell className="px-6 py-4 font-medium text-gray-900">
+                  {order.id}
+                </TableCell>
+                <TableCell>{order.user?.firstName}</TableCell>
+                <TableCell>
+                  {new Date(order.createdAt ?? "").toLocaleDateString()}
+                </TableCell>
+                <TableCell>
+                  <StatusBadge status={order.status} />
+                </TableCell>
+                <TableCell>{naira(order.total ?? 0)}</TableCell>
+                <TableCell>
+                  <Link
+                    href={`/admin/orders/${order.id}`}
+                    className={buttonVariants({
+                      variant: "default",
+                      size: "sm",
+                    })}
+                  >
+                    View
+                  </Link>
+                </TableCell>
+              </TableRow>
+            ),
+          )}
           {/* </TableRow> */}
         </TableBody>
       </Table>

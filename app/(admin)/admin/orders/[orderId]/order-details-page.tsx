@@ -29,7 +29,7 @@ export default function OrderDetailsPage() {
   console.log("Order data:", orders); // ✅ Debug fetched data
   return (
     <div className="max-w-[1200px] mx-auto w-full p-6 lg:p-10 space-y-8">
-      <OrderHeader status={orders.data?.status} />
+      <OrderHeader order={orders.data} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 flex flex-col gap-8">
@@ -38,7 +38,9 @@ export default function OrderDetailsPage() {
         </div>
 
         <div className="flex flex-col gap-8">
-          <ShippingSummaryCard />
+          <ShippingSummaryCard
+            shipping={orders.data?.shippingAddressSnapshot}
+          />
           <OrderSummary />
         </div>
       </div>

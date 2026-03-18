@@ -15,7 +15,7 @@ import {
 import Filter from "../molecules/filter";
 import ProductCard from "@/components/product-card";
 import { useListProducts } from "@/queries/product";
-import type { Product } from "@/types";
+import type { Product, ProductFilter } from "@/types";
 import Breadcrumb from "@/components/breadcrumb";
 
 type SortKey = "featured" | "price-low" | "price-high" | "newest" | "rating";
@@ -25,7 +25,7 @@ export default function ProductListingPage() {
   const category =
     typeof params?.category === "string" ? params.category : undefined;
 
-  const [filter, setFilter] = useState({
+  const [filter, setFilter] = useState<ProductFilter>({
     storage: undefined,
     category: category,
   });
@@ -48,14 +48,17 @@ export default function ProductListingPage() {
 
     switch (sort) {
       case "price-low":
-        arr.sort((a, b) => a.price - b.price);
+        arr.sort((a, b) => (b.maxPrice ?? 0) - (a.minPrice ?? 0));
         break;
       case "price-high":
-        arr.sort((a, b) => b.price - a.price);
+        arr.sort((a, b) => (b.maxPrice ?? 0) - (a.minPrice ?? 0));
         break;
       case "newest":
         // If you have createdAt, use it. Otherwise prefer isNew first.
-        arr.sort((a, b) => Number(Boolean(b.isNew)) - Number(Boolean(a.isNew)));
+        arr.sort(
+          (a, b) =>
+            Number(Boolean(b.isNewArrival)) - Number(Boolean(a.isNewArrival)),
+        );
         break;
       case "rating":
         // If you have rating, use it. Otherwise keep as-is.
@@ -81,7 +84,7 @@ export default function ProductListingPage() {
             {category}
           </h1>
           <p className="mt-2 text-muted-foreground">
-            {getDescription(category)}
+            {getDescription(category ?? "")}
           </p>
         </div>
 

@@ -14,7 +14,7 @@ import Person from "./person";
 import { User } from "@/types";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import StatusBadge from "../../molecules/status";
+import StatusBadge, { OrderStatus } from "../../molecules/status";
 
 export default function CustomersTable() {
   const { data, isLoading, error } = useListUsers();
@@ -36,7 +36,7 @@ export default function CustomersTable() {
         </TableHeader>
 
         <TableBody>
-          {users.map((user: User & { id: string }) => (
+          {users.map((user: User & { id: string; status?: OrderStatus }) => (
             <TableRow key={user.id}>
               <TableCell className="px-6 py-4 font-medium text-gray-900">
                 <Person

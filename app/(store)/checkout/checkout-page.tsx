@@ -5,7 +5,7 @@ import { CreditCard, Truck } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Breadcrumb from "@/components/breadcrumb";
 import { CartSummaryCard } from "../cart/cart-summary";
-import Shipping from "./molecules/shipping";
+// import Shipping from "./molecules/shipping";
 import Payment from "./molecules/payment";
 
 export default function CheckoutPage() {
@@ -46,7 +46,7 @@ export default function CheckoutPage() {
 
             <div className="mt-8 grid gap-8 lg:grid-cols-3">
               <div className="lg:col-span-2">
-                {step === "shipping" && <Shipping setStep={setStep} />}
+                {/* {step === "shipping" && <Shipping setStep={setStep} />} */}
 
                 {step === "payment" && <Payment setStep={setStep} />}
 

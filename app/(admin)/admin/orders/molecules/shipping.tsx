@@ -1,9 +1,18 @@
 export default function ShippingSummaryCard({
-  customer,
   shipping,
 }: {
-  customer?: any;
-  shipping?: any;
+  shipping?: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    phone?: string;
+    address?: string;
+    addressLine2?: string;
+    city?: string;
+    state?: string;
+    zip?: string;
+    country?: string;
+  };
 }) {
   return (
     <div className="bg-white rounded-2xl border p-6 space-y-6">
@@ -16,16 +25,16 @@ export default function ShippingSummaryCard({
           <div>
             <p className="text-xs text-slate-400 uppercase">Name</p>
             <p className="font-medium">
-              {customer?.firstName} {customer?.lastName}
+              {shipping?.firstName} {shipping?.lastName}
             </p>
           </div>
           <div>
             <p className="text-xs text-slate-400 uppercase">Email</p>
-            <p>{customer?.email}</p>
+            <p>{shipping?.email}</p>
           </div>
           <div>
             <p className="text-xs text-slate-400 uppercase">Phone</p>
-            <p>{customer?.phone ?? "N/A"}</p>
+            <p>{shipping?.phone ?? "N/A"}</p>
           </div>
         </div>
       </div>
@@ -39,7 +48,7 @@ export default function ShippingSummaryCard({
           <div>
             <p className="text-xs text-slate-400 uppercase">Address</p>
             <p className="font-medium">
-              {shipping?.addressLine1 ?? "Store Pickup"}
+              {shipping?.address ?? "Store Pickup"}
               <br />
               {shipping?.addressLine2 && (
                 <>

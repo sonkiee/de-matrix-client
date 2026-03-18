@@ -37,30 +37,45 @@ export default function ProductsTable() {
         </TableHeader>
 
         <TableBody>
-          {products.map((product: any) => (
-            <TableRow key={product.id}>
-              <TableCell className="px-6 py-4 font-medium text-gray-900">
-                <Prdt name={product.title} category={product.category?.name} />
-              </TableCell>
-              <TableCell>{product.category?.name}</TableCell>
-              <TableCell>{naira(product.price ?? 0)}</TableCell>
-              <TableCell>
-                {product.inStock ? "In Stock" : "Out of Stock"}
-              </TableCell>
-              <TableCell>
-                {/* <StatusBadge status={product.isActive} /> */}
-                <p>hello</p>
-              </TableCell>
-              <TableCell>
-                <Link
-                  href={`/admin/products/${product.id}`}
-                  className={buttonVariants({ variant: "default", size: "sm" })}
-                >
-                  View
-                </Link>
-              </TableCell>
-            </TableRow>
-          ))}
+          {products.map(
+            (product: {
+              id?: string;
+              title?: string;
+              category?: { name?: string };
+              price?: number;
+              inStock?: boolean;
+              isActive?: boolean;
+            }) => (
+              <TableRow key={product.id}>
+                <TableCell className="px-6 py-4 font-medium text-gray-900">
+                  <Prdt
+                    name={product.title ?? "Product Name"}
+                    category={product.category?.name}
+                  />
+                </TableCell>
+                <TableCell>{product.category?.name}</TableCell>
+                <TableCell>{naira(product.price ?? 0)}</TableCell>
+                <TableCell>
+                  {product.inStock ? "In Stock" : "Out of Stock"}
+                </TableCell>
+                <TableCell>
+                  {/* <StatusBadge status={product.isActive} /> */}
+                  <p>hello</p>
+                </TableCell>
+                <TableCell>
+                  <Link
+                    href={`/admin/products/${product.id}`}
+                    className={buttonVariants({
+                      variant: "default",
+                      size: "sm",
+                    })}
+                  >
+                    View
+                  </Link>
+                </TableCell>
+              </TableRow>
+            ),
+          )}
         </TableBody>
       </Table>
     </div>

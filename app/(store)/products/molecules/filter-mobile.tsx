@@ -2,8 +2,17 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { FilterIcon } from "lucide-react";
 import FilterContent from "./filter-content";
+import { ProductFilter } from "@/types";
 
-export default function FilterMobile({ slug }: { slug: string }) {
+export default function FilterMobile({
+  filter,
+  setFilter,
+  slug,
+}: {
+  filter: ProductFilter;
+  setFilter: React.Dispatch<React.SetStateAction<ProductFilter>>;
+  slug: string;
+}) {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -15,7 +24,7 @@ export default function FilterMobile({ slug }: { slug: string }) {
 
       <SheetContent side="left" className="w-[320px] sm:w-95 px-2 py-6">
         {/* In the drawer, Filter must render its content (no lg:hidden inside it) */}
-        <FilterContent slug={slug} />
+        <FilterContent {...{ filter, setFilter }} slug={slug} />
       </SheetContent>
     </Sheet>
   );

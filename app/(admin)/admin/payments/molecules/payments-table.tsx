@@ -13,7 +13,7 @@ import { useListPayments } from "@/queries/admin";
 import { date } from "@/utils/date";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import StatusBadge from "../../molecules/status";
+import StatusBadge, { OrderStatus } from "../../molecules/status";
 
 export default function PaymentsTable() {
   const { data, isLoading, error } = useListPayments();
@@ -35,27 +35,38 @@ export default function PaymentsTable() {
         </TableHeader>
 
         <TableBody>
-          {payments.map((payment: any) => (
-            <TableRow key={payment.id}>
-              <TableCell className="px-6 py-4 font-medium text-gray-900">
-                {payment.id}
-              </TableCell>
-              <TableCell>{payment.user?.firstName}</TableCell>
-              <TableCell>{date(payment.createdAt)}</TableCell>
-              <TableCell className="text-xs">{payment.amount}</TableCell>
-              <TableCell>
-                <StatusBadge status={payment.status} />
-              </TableCell>
-              <TableCell>
-                <Link
-                  href={`/admin/payments/${payment.id}`}
-                  className={buttonVariants({ variant: "default", size: "sm" })}
-                >
-                  View
-                </Link>
-              </TableCell>
-            </TableRow>
-          ))}
+          {payments.map(
+            (payment: {
+              id?: string;
+              user?: { firstName?: string };
+              createdAt?: string;
+              amount?: number;
+              status?: OrderStatus;
+            }) => (
+              <TableRow key={payment.id}>
+                <TableCell className="px-6 py-4 font-medium text-gray-900">
+                  {payment.id}
+                </TableCell>
+                <TableCell>{payment.user?.firstName}</TableCell>
+                <TableCell>{date(payment.createdAt ?? "")}</TableCell>
+                <TableCell className="text-xs">{payment.amount}</TableCell>
+                <TableCell>
+                  <StatusBadge status={payment.status} />
+                </TableCell>
+                <TableCell>
+                  <Link
+                    href={`/admin/payments/${payment.id}`}
+                    className={buttonVariants({
+                      variant: "default",
+                      size: "sm",
+                    })}
+                  >
+                    View
+                  </Link>
+                </TableCell>
+              </TableRow>
+            ),
+          )}
         </TableBody>
       </Table>
     </div>

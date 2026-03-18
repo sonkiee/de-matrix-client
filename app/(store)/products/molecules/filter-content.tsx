@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
+import { ProductFilter } from "@/types";
 
 export default function FilterContent({
   slug,
@@ -8,8 +9,8 @@ export default function FilterContent({
   setFilter,
 }: {
   slug: string;
-  filter: any;
-  setFilter: React.Dispatch<React.SetStateAction<any>>;
+  filter: ProductFilter;
+  setFilter: React.Dispatch<React.SetStateAction<ProductFilter>>;
 }) {
   return (
     <div className=" space-y-6">

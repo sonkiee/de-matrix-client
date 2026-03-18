@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 
 import laptopImg from "../assets/images/m3.jpg"; // replace with your real images
@@ -37,7 +37,7 @@ function CategoryCard({
   title: string;
   subtitle?: string;
   href: string;
-  image: any;
+  image: StaticImageData;
   className?: string;
 }) {
   return (

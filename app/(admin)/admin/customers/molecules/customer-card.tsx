@@ -1,4 +1,13 @@
-export default function CustomerCard({ customer }: { customer?: any }) {
+export default function CustomerCard({
+  customer,
+}: {
+  customer?: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    phone?: string;
+  };
+}) {
   return (
     <div className="bg-white rounded-2xl border p-6">
       <div className="flex justify-between mb-4">

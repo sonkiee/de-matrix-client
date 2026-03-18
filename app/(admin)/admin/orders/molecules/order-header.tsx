@@ -1,6 +1,11 @@
-import StatusBadge from "../../molecules/status";
+import { date } from "@/utils/date";
+import StatusBadge, { OrderStatus } from "../../molecules/status";
 
-export default function OrderHeader({ status }: { status?: string }) {
+export default function OrderHeader({
+  order,
+}: {
+  order?: { status?: OrderStatus; createdAt?: string };
+}) {
   return (
     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
       <div>
@@ -9,11 +14,11 @@ export default function OrderHeader({ status }: { status?: string }) {
             Order #ORD-8821
           </h1>
 
-          <StatusBadge status={status} />
+          <StatusBadge status={order?.status ?? "pending"} />
         </div>
 
         <p className="text-slate-500 text-base">
-          Placed on Oct 24, 2023 at 2:15 PM via Mobile App
+          Placed on {date(order?.createdAt ?? "")}
         </p>
       </div>
 

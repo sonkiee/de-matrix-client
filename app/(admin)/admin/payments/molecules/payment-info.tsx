@@ -1,6 +1,13 @@
 import { date } from "@/utils/date";
 
-export default function PaymentInfo({ payment }: { payment?: any }) {
+export default function PaymentInfo({
+  payment,
+}: {
+  payment?: {
+    createdAt?: string;
+    provider?: string;
+  };
+}) {
   return (
     <div className="bg-white rounded-xl border">
       <div className="px-6 py-4 border-b">
@@ -13,7 +20,7 @@ export default function PaymentInfo({ payment }: { payment?: any }) {
             Date & Time
           </p>
 
-          <p className="font-medium">{date(payment?.createdAt)}</p>
+          <p className="font-medium">{date(payment?.createdAt ?? "")}</p>
         </div>
 
         <div>

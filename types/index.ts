@@ -6,6 +6,16 @@ export type User = {
   role: string;
 };
 
+export type ProductFilter = {
+  priceRange?: [number, number];
+  brand?: string;
+  storage?: number;
+  condition?: string;
+  processor?: string;
+  ram?: number;
+  category?: string;
+};
+
 export type AuthContextType = {
   user: User | null;
   setUser: (user: User | null) => void;

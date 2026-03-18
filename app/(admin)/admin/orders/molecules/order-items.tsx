@@ -1,4 +1,13 @@
-export default function OrderItems({ items }: { items?: any[] }) {
+export default function OrderItems({
+  items,
+}: {
+  items?: {
+    id?: string;
+    productTitleSnapshot?: string;
+    price?: number;
+    quantity?: number;
+  }[];
+}) {
   return (
     <div className="bg-white rounded-2xl border overflow-hidden">
       <div className="px-6 py-5 border-b flex justify-between">

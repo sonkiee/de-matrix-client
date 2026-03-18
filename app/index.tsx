@@ -8,7 +8,7 @@ import { SiteHeader } from "@/components/site-header";
 import ShopByCategory from "@/components/category-showcase";
 import SiteFooter from "../components/site-footer";
 import CategoryShowcase from "@/components/category-showcase";
-import { HotDeals } from "@/components/hot-deals";
+// import { HotDeals } from "@/components/hot-deals";
 import { StoreServices } from "@/components/store-services";
 
 export default function Home() {
@@ -26,7 +26,7 @@ export default function Home() {
         <StoreServices />
         <CategoryShowcase />
         {/* Best Sellers  */}
-        <HotDeals />
+        {/* <HotDeals /> */}
         {/* Brands */}
         {/* Why Choose Us */}
         <WhyChooseUsSection />
