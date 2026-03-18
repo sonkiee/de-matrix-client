@@ -8,7 +8,6 @@ import { useAction } from "next-safe-action/hooks";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
-import Paystack from "@paystack/inline-js";
 
 const Payment = ({ setStep }: { setStep: (step: string) => void }) => {
   const sp = useSearchParams();
@@ -40,7 +39,9 @@ const Payment = ({ setStep }: { setStep: (step: string) => void }) => {
     return;
   }
 
-  const pay = (accessCode: string) => {
+  const pay = async (accessCode: string) => {
+    const PaystackModule = await import("@paystack/inline-js");
+    const Paystack = PaystackModule.default;
     const paystack = new Paystack();
     paystack.resumeTransaction(accessCode, {
       // key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,

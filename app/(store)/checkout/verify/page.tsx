@@ -1,6 +1,6 @@
 "use client";
 
-import { Spinner } from "@/components/spinner";
+import Spinner from "@/components/spinner";
 import Failed from "./failed";
 import Success from "./success";
 import { useSearchParams } from "next/navigation";
