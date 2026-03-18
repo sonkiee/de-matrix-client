@@ -1,3 +1,5 @@
+"use server";
+
 import { cookies as nextcookies } from "next/headers";
 
 const options = {

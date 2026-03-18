@@ -1,3 +1,5 @@
+"use server";
+
 import { actionClient } from "@/lib/safe-action";
 import {
   createOrderSchema,
