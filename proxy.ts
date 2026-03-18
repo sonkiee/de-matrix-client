@@ -31,6 +31,7 @@ export async function proxy(req: NextRequest) {
   if (token) {
     try {
       user = jwt.verify(token, JWT_SECRET!) as { id: string; role: string };
+      console.log(`Authenticated user: ${user.id} with role: ${user.role}`);
     } catch (error) {
       user = null;
     }
