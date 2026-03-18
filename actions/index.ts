@@ -6,19 +6,24 @@ import {
   signupSchema,
 } from "@/schema";
 import { api } from "@/lib/axios";
+import { cookies } from "@/utils/cookies";
 
 export const signin = actionClient
   .inputSchema(signinSchema)
   .action(async ({ parsedInput }) => {
     const response = await api.post("/auth/signin", parsedInput);
-    return response;
+    const { token } = response.data;
+    await cookies.set(token);
+    return { token };
   });
 
 export const signup = actionClient
   .inputSchema(signupSchema)
   .action(async ({ parsedInput }) => {
     const response = await api.post("/auth/signup", parsedInput);
-    return response;
+    const { token } = response.data;
+    await cookies.set(token);
+    return { token };
   });
 
 export const createOrder = actionClient
@@ -38,5 +43,6 @@ export const placeOrder = actionClient
 
 export const logout = actionClient.action(async () => {
   const response = await api.post("/auth/logout");
+  await cookies.set("");
   return response.data;
 });

@@ -12,7 +12,8 @@ async function me(token: string) {
     const res = await fetch(`${API_BASE_URL}/auth/me`, {
       credentials: "include",
       headers: {
-        Cookie: `access_token=${token}`,
+        // Cookie: `access_token=${token}`,
+        Authorization: `Bearer ${token}`,
       },
       cache: "no-store",
     });
