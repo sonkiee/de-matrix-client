@@ -1,5 +1,3 @@
-"use server";
-
 import { actionClient } from "@/lib/safe-action";
 import {
   createOrderSchema,
@@ -8,24 +6,19 @@ import {
   signupSchema,
 } from "@/schema";
 import { api } from "@/lib/axios";
-import { cookies } from "@/utils/cookies";
 
 export const signin = actionClient
   .inputSchema(signinSchema)
   .action(async ({ parsedInput }) => {
     const response = await api.post("/auth/signin", parsedInput);
-    const { token } = response.data;
-    await cookies.set(token);
-    return { token };
+    return response.data;
   });
 
 export const signup = actionClient
   .inputSchema(signupSchema)
   .action(async ({ parsedInput }) => {
     const response = await api.post("/auth/signup", parsedInput);
-    const { token } = response.data;
-    await cookies.set(token);
-    return { token };
+    return response.data;
   });
 
 export const createOrder = actionClient
@@ -45,6 +38,5 @@ export const placeOrder = actionClient
 
 export const logout = actionClient.action(async () => {
   const response = await api.post("/auth/logout");
-  await cookies.set("");
   return response.data;
 });

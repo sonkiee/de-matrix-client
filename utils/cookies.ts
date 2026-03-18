@@ -10,9 +10,7 @@ const options = {
   path: "/",
 };
 
-export const cookies = {
-  set: async (value: string) => {
-    const store = await nextcookies();
-    store.set("access_token", value, options);
-  },
+export const cookies = async (value: string) => {
+  const store = await nextcookies();
+  store.set("access_token", value, options);
 };
