@@ -5,7 +5,7 @@ import { CreditCard, Truck } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Breadcrumb from "@/components/breadcrumb";
 import { CartSummaryCard } from "../cart/cart-summary";
-// import Shipping from "./molecules/shipping";
+import Shipping from "./molecules/shipping";
 import Payment from "./molecules/payment";
 
 export default function CheckoutPage() {
@@ -30,11 +30,19 @@ export default function CheckoutPage() {
           <Tabs value={step} onValueChange={setStep} className="w-full">
             <TabsList className="grid w-full grid-cols-2 ">
               {/* rounded-md bg-muted p-1 */}
-              <TabsTrigger value="shipping" className="flex items-center gap-2">
+              <TabsTrigger
+                disabled
+                value="shipping"
+                className="flex items-center gap-2"
+              >
                 <Truck className="h-4 w-4" />
                 <span className="hidden sm:inline">Shipping</span>
               </TabsTrigger>
-              <TabsTrigger value="payment" className="flex items-center gap-2">
+              <TabsTrigger
+                disabled
+                value="payment"
+                className="flex items-center gap-2"
+              >
                 <CreditCard className="h-4 w-4" />
                 <span className="hidden sm:inline">Payment</span>
               </TabsTrigger>
@@ -46,7 +54,7 @@ export default function CheckoutPage() {
 
             <div className="mt-8 grid gap-8 lg:grid-cols-3">
               <div className="lg:col-span-2">
-                {/* {step === "shipping" && <Shipping setStep={setStep} />} */}
+                {step === "shipping" && <Shipping setStep={setStep} />}
 
                 {step === "payment" && <Payment setStep={setStep} />}
 

@@ -86,3 +86,58 @@ export interface Category {
   _id: string;
   name: string;
 }
+
+export interface Address {
+  id: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  addressLine: string;
+  city: string;
+  state: string;
+  zip: string;
+  country: string;
+}
+
+export type OrderStatus = "processing" | "shipped" | "delivered" | "cancelled";
+
+export type OrderItem = {
+  id: string;
+  orderId: string;
+  variantId: string;
+  productTitleSnapshot: string;
+  qty: number;
+  unitPrice: string;
+  createdAt: string;
+
+  variantSnapshot: {
+    sku: string;
+    color: string;
+    storage: number;
+    condition: string;
+  };
+};
+
+export type OrderItems = {
+  id: string;
+  orderNumber: string;
+  status: OrderStatus;
+  deliveryMethod: "pickup" | "delivery";
+  items: OrderItem[];
+  subtotal: string;
+  total: string;
+  shippingFee: string;
+  discountTotal: string;
+  createdAt: string;
+  updatedAt: string;
+
+  addressId: string | null;
+  shippingAddressSnapshot?: {
+    city: string;
+    state: string;
+    phone: string;
+    addressLine?: string;
+  };
+
+  userId: string;
+};

@@ -14,7 +14,7 @@ import Person from "./person";
 import { User } from "@/types";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import StatusBadge, { OrderStatus } from "../../molecules/status";
+import StatusBadge, { OrderStatus } from "../../../../../components/status";
 
 export default function CustomersTable() {
   const { data, isLoading, error } = useListUsers();

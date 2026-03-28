@@ -1,4 +1,4 @@
-import StatusBadge, { OrderStatus } from "../../molecules/status";
+import StatusBadge, { OrderStatus } from "../../../../../components/status";
 
 export default function TransactionHeader({
   status,

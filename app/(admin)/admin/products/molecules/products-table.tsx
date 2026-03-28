@@ -9,8 +9,8 @@ import {
   TableHeaderCell,
   TableRow,
 } from "../../molecules/table";
-import Status from "../../molecules/status";
-import StatusBadge from "../../molecules/status";
+import Status from "../../../../../components/status";
+import StatusBadge from "../../../../../components/status";
 import { useListProducts } from "@/queries/admin";
 import Prdt from "./prdt";
 import { naira } from "@/utils/naira";

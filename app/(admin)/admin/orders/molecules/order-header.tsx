@@ -1,5 +1,5 @@
 import { date } from "@/utils/date";
-import StatusBadge, { OrderStatus } from "../../molecules/status";
+import StatusBadge, { OrderStatus } from "../../../../../components/status";
 
 export default function OrderHeader({
   order,

@@ -13,7 +13,7 @@ import { useFetchOrders } from "@/queries/admin";
 import { naira } from "@/utils/naira";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import StatusBadge, { OrderStatus } from "../../molecules/status";
+import StatusBadge, { OrderStatus } from "../../../../../components/status";
 
 export default function OrdersTable() {
   const { data, isLoading, error } = useFetchOrders();

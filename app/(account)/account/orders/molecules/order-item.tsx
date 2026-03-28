@@ -1,84 +1,49 @@
-// OrderItem.tsx
-type OrderStatus = "Delivered" | "Shipped" | "Processing" | "Cancelled";
+import StatusBadge from "@/components/status";
+import { OrderItems } from "@/types";
+import { date } from "@/utils/date";
+import { naira } from "@/utils/naira";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-type OrderItemProps = {
-  status: OrderStatus;
-  date: string;
-  orderNumber: string;
-  title: string;
-  total: string;
-  itemCount: number;
-  imageUrl: string;
-  onPrimaryAction?: () => void;
-  onSecondaryAction?: () => void;
-};
+// const mapOrderToUI = (order: Order): OrderItemProps => {
+//   return {
+//     status: capitalize(order.status),
+//     date: new Date(order.createdAt).toLocaleDateString(),
+//     orderNumber: order.orderNumber,
 
-const statusStyles: Record<
-  OrderStatus,
-  { badge: string; primaryLabel: string; primaryClass: string; icon?: string }
-> = {
-  Delivered: {
-    badge:
-      "text-green-600 bg-green-50 dark:bg-green-900/30 dark:text-green-400",
-    primaryLabel: "View Details",
-    primaryClass:
-      "bg-primary text-white shadow-lg shadow-primary/20 hover:bg-primary/90",
-    icon: "chevron_right",
-  },
-  Shipped: {
-    badge: "text-primary bg-primary/10",
-    primaryLabel: "Track Order",
-    primaryClass:
-      "bg-slate-900 text-white shadow-lg hover:bg-slate-800 dark:bg-white dark:text-slate-900",
-    icon: "local_shipping",
-  },
-  Processing: {
-    badge:
-      "text-amber-600 bg-amber-50 dark:bg-amber-900/30 dark:text-amber-400",
-    primaryLabel: "Manage Order",
-    primaryClass:
-      "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300",
-  },
-  Cancelled: {
-    badge: "text-red-600 bg-red-50 dark:bg-red-900/30 dark:text-red-400",
-    primaryLabel: "View Details",
-    primaryClass:
-      "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300",
-  },
-};
+//     // take first product title (or combine if multiple)
+//     title:
+//       order.items.length === 1
+//         ? order.items[0].productTitleSnapshot
+//         : `${order.items[0].productTitleSnapshot} + ${
+//             order.items.length - 1
+//           } more`,
 
-export default function OrderItem(props: OrderItemProps) {
-  const {
-    status,
-    date,
-    orderNumber,
-    title,
-    total,
-    itemCount,
-    imageUrl,
-    onPrimaryAction,
-    onSecondaryAction,
-  } = props;
+//     total: order.total,
+//     itemCount: order.items.reduce((acc, item) => acc + item.qty, 0),
 
-  const cfg = statusStyles[status];
+//     imageUrl: undefined, // you don’t have image in payload yet
+//   };
+// };
 
-  const secondary =
-    status === "Delivered"
-      ? { label: "Buy Again", variant: "outline" as const }
-      : status === "Shipped"
-        ? { label: "Invoice", variant: "outline" as const }
-        : status === "Processing"
-          ? { label: "Cancel Order", variant: "link" as const }
-          : null;
+export default function OrderItem({ item }: { item: OrderItems }) {
+  const router = useRouter();
+  const { status, createdAt, orderNumber, title, total, itemCount, imageUrl } =
+    item;
 
   return (
-    <div className="group relative overflow-hidden rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-slate-800 dark:bg-slate-900/50">
+    <div
+      onClick={() => router.push(`/account/orders/${orderNumber}`)}
+      className="group relative overflow-hidden rounded-xl border border-slate-200 bg-white p-6 transition-all hover:shadow-md dark:border-slate-800 dark:bg-slate-900/50"
+    >
       <div className="flex flex-col gap-2 md:flex-row">
         <div className="h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-800">
-          <img
+          <Image
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
             alt={title}
-            src={imageUrl}
+            src={imageUrl ?? "/placeholder.svg"}
+            width={100}
+            height={100}
           />
         </div>
 
@@ -86,85 +51,82 @@ export default function OrderItem(props: OrderItemProps) {
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <div className="flex items-center gap-2">
-                <span
-                  className={[
-                    "rounded-full px-2 py-0.5 text-xs uppercase tracking-wider",
-                    cfg.badge,
-                  ].join(" ")}
-                >
-                  {status}
+                <StatusBadge
+                  status={status}
+                  className="rounded-none bg-tranparent"
+                />
+
+                <span className="text-sm text-slate-400">
+                  {date(createdAt)}
                 </span>
-                <span className="text-sm text-slate-400">{date}</span>
               </div>
 
               <h3 className="mt-1 ml-1.5 font-bold text-slate-900 dark:text-white">
                 {orderNumber}
               </h3>
-              <p className="text-sm ml-1.5 text-slate-500">{title}</p>
+              <p className="text-sm ml-1.5 text-slate-500">
+                {title ?? "Unnamed Item"}
+              </p>
             </div>
 
             <div className="text-right">
               <p className="text-lg font-bold text-slate-900 dark:text-white">
-                {total}
+                {naira(total) ?? "$0.00"}
               </p>
               <p className="text-xs text-slate-400">
                 {itemCount} {itemCount === 1 ? "Item" : "Items"}
               </p>
             </div>
           </div>
-
-          <div className="mt-4 flex items-center gap-3">
-            <button
-              type="button"
-              onClick={onPrimaryAction}
-              className={[
-                "flex items-center gap-2 rounded-lg px-5 py-2 text-sm transition-all",
-                cfg.primaryClass,
-              ].join(" ")}
-            >
-              {cfg.icon ? (
-                cfg.icon === "chevron_right" ? (
-                  <>
-                    <span>{cfg.primaryLabel}</span>
-                    <span className="material-symbols-outlined">
-                      chevron_right
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <span className="material-symbols-outlined">
-                      {cfg.icon}
-                    </span>
-                    <span>{cfg.primaryLabel}</span>
-                  </>
-                )
-              ) : (
-                <span>{cfg.primaryLabel}</span>
-              )}
-            </button>
-
-            {secondary?.variant === "outline" && (
-              <button
-                type="button"
-                onClick={onSecondaryAction}
-                className="flex items-center gap-2 rounded-lg border border-slate-200 px-5 py-2 text-sm font-medium text-slate-600 transition-all hover:bg-slate-50 dark:border-slate-700 dark:text-slate-400 dark:hover:bg-slate-800"
-              >
-                {secondary.label}
-              </button>
-            )}
-
-            {secondary?.variant === "link" && (
-              <button
-                type="button"
-                onClick={onSecondaryAction}
-                className="text-sm font-medium text-slate-400 transition-colors hover:text-red-500"
-              >
-                {secondary.label}
-              </button>
-            )}
-          </div>
         </div>
       </div>
     </div>
   );
 }
+
+//  <div className="mt-4 flex items-center gap-3">
+//    <button
+//      type="button"
+//      onClick={onPrimaryAction}
+//      className={[
+//        "flex items-center gap-2 rounded-lg px-5 py-2 text-sm transition-all",
+//        cfg.primaryClass,
+//      ].join(" ")}
+//    >
+//      {cfg.icon ? (
+//        cfg.icon === "chevron_right" ? (
+//          <>
+//            <span>{cfg.primaryLabel}</span>
+//            <span className="material-symbols-outlined">chevron_right</span>
+//          </>
+//        ) : (
+//          <>
+//            <span className="material-symbols-outlined">{cfg.icon}</span>
+//            <span>{cfg.primaryLabel}</span>
+//          </>
+//        )
+//      ) : (
+//        <span>{cfg.primaryLabel}</span>
+//      )}
+//    </button>
+
+//    {secondary?.variant === "outline" && (
+//      <button
+//        type="button"
+//        onClick={onSecondaryAction}
+//        className="flex items-center gap-2 rounded-lg border border-slate-200 px-5 py-2 text-sm font-medium text-slate-600 transition-all hover:bg-slate-50 dark:border-slate-700 dark:text-slate-400 dark:hover:bg-slate-800"
+//      >
+//        {secondary.label}
+//      </button>
+//    )}
+
+//    {secondary?.variant === "link" && (
+//      <button
+//        type="button"
+//        onClick={onSecondaryAction}
+//        className="text-sm font-medium text-slate-400 transition-colors hover:text-red-500"
+//      >
+//        {secondary.label}
+//      </button>
+//    )}
+//  </div>;

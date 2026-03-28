@@ -18,7 +18,13 @@ export type OrderStatus =
   | "abandoned"
   | undefined;
 
-export default function StatusBadge({ status }: { status: OrderStatus }) {
+export default function StatusBadge({
+  status,
+  className,
+}: {
+  status: OrderStatus;
+  className?: string;
+}) {
   const statusStyles: Record<string, string> = {
     active: "bg-green-100 text-green-700",
     inactive: "bg-gray-100 text-gray-700",
@@ -44,7 +50,7 @@ export default function StatusBadge({ status }: { status: OrderStatus }) {
 
   return (
     <span
-      className={`inline-flex rounded-full ${styles} px-2 py-1 text-xs font-medium`}
+      className={`inline-flex rounded-full ${styles} px-2 py-1 text-xs font-medium ${className || ""}`}
     >
       {status}
     </span>

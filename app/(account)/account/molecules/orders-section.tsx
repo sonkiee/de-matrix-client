@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,11 +10,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { useFetchUserOrders } from "@/queries";
 import { Order } from "@/types";
-import { naira } from "@/utils/naira";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
 import OrderItem from "../orders/molecules/order-item";
 
 const OrdersSection = ({ activeTab }: { activeTab: string }) => {
@@ -23,8 +19,9 @@ const OrdersSection = ({ activeTab }: { activeTab: string }) => {
   const { data, isLoading } = useFetchUserOrders();
   const orders = data?.data as Order[] | undefined;
 
-  console.log("Orders fetched", orders?.length);
+  console.log("Orders fetched", orders);
   const is = orders;
+
   return (
     <>
       {activeTab === "orders" && (
@@ -34,20 +31,13 @@ const OrdersSection = ({ activeTab }: { activeTab: string }) => {
               <CardTitle>Order History</CardTitle>
               <CardDescription>View and manage your orders.</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-2">
               {!orders && <NoOrders />}
 
-              {orders?.length && (
-                <OrderItem
-                  status="Delivered"
-                  date="Oct 24, 2023"
-                  orderNumber="Order #LX-84920"
-                  title="Nike Air Max Premium - Crimson Red"
-                  total="$249.00"
-                  itemCount={1}
-                  imageUrl="https://lh3.googleusercontent.com/aida-public/AB6AXuB4QyvYR5AhDWx7jmR59aJuj2XUidY3U1EYJQfVFD7Pk8rCdpNujC9sS4j0BZALjQrEWUgcgHXtp7yOvaP18_dj9lhQxmU3V1EUT6u2wZ_bP1-pA9c7SD35oWv9f8_S_6isJLrun0WDwxexM1CoOkeqIBn4muKwRVN3-6RKXZzK5mzEevj_R9uIUWSu9G-iP_akw1KnJ94eHrqVzYGH3I-TyboZsY2YywP_WyqSmSXW08UyqCyQmKTel_HgRUdqV9fkYikCK6lOKw"
-                />
-              )}
+              {orders?.length &&
+                orders
+                  .slice(0, 3)
+                  .map((order) => <OrderItem key={order.id} item={order} />)}
             </CardContent>
             <CardFooter className="flex justify-center">
               {is && (
