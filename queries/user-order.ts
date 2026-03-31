@@ -15,7 +15,7 @@ export const useGetUserOrderDetails = (orderId: string) => {
   return useQuery({
     queryKey: ["user-orders", orderId],
     queryFn: async () => {
-      const response = await api.get(`/user/order/${orderId}`);
+      const response = await api.get(`/orders/${orderId}`);
       return response.data;
     },
     enabled: !!orderId, // optional but useful to avoid firing when ID is not yet available

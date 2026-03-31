@@ -23,7 +23,7 @@ import {
 
 import { useAction } from "next-safe-action/hooks";
 import { createOrder } from "@/actions";
-import { useGetAddress } from "@/queries/user";
+import { useGetUserAddress } from "@/queries/user";
 
 import type { CreateOrderData, ShippingData } from "@/schema";
 import { shippingSchema } from "@/schema";
@@ -38,7 +38,7 @@ const Shipping = ({ setStep }: { setStep: (step: string) => void }) => {
   const r = useRouter();
   const sp = useSearchParams();
   const setSearchQuery = useSetSearchQuery();
-  const { data: addresses } = useGetAddress();
+  const { data: addresses } = useGetUserAddress();
   const { items: cartItems } = useCartStore();
   const { setOrderId } = useOrderStore();
   const [deliveryMethod, setDeliveryMethod] = useState<"pickup" | "delivery">(
@@ -51,6 +51,8 @@ const Shipping = ({ setStep }: { setStep: (step: string) => void }) => {
 
   const hasSavedAddresses = addresses;
 
+  console.log("User addresses:", addresses);
+
   // FORM SHOULD VALIDATE ONLY SHIPPING FIELDS (not the whole createOrder payload)
   const f = useForm<ShippingData>({
     resolver: zodResolver(shippingSchema),
@@ -61,6 +63,8 @@ const Shipping = ({ setStep }: { setStep: (step: string) => void }) => {
       address: "",
       city: "",
       state: "",
+      saveToAddressBook: false, // ✅ add default value
+
       // optional in schema:
       // zip: "",
       // country: "Nigeria",
@@ -112,9 +116,9 @@ const Shipping = ({ setStep }: { setStep: (step: string) => void }) => {
         : {
             items: cartItems,
             deliveryMethod,
+            saveToAddressBook,
             shippingAddress: {
               ...shippingValues,
-              // saveToAddressBook,
             },
           };
 
@@ -278,13 +282,26 @@ const Shipping = ({ setStep }: { setStep: (step: string) => void }) => {
                   {/* Save address checkbox (only makes sense for delivery) */}
                   {deliveryMethod === "delivery" && (
                     <div className="flex items-center space-x-2 pt-2">
-                      <Checkbox
-                        id="save-address"
-                        checked={saveToAddressBook}
-                        onCheckedChange={(checked) =>
-                          setSaveToAddressBook(checked === true)
-                        }
+                      <FormField
+                        control={f.control}
+                        name="saveToAddressBook"
+                        render={({ field }) => (
+                          <FormItem className="space-y-2">
+                            <FormLabel>Save to Address Book</FormLabel>
+                            <FormControl>
+                              <Checkbox
+                                id="save-address"
+                                checked={saveToAddressBook}
+                                onCheckedChange={(checked) =>
+                                  setSaveToAddressBook(checked === true)
+                                }
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
                       />
+
                       <label
                         htmlFor="save-address"
                         className="text-sm font-medium leading-none"

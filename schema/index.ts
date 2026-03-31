@@ -100,6 +100,7 @@ export const shippingSchema = z.object({
   address: z.string().min(1, "Address is required"),
   city: z.string().min(1, "City is required"),
   state: z.string().min(1, "State is required"),
+  saveToAddressBook: z.boolean().optional(), // ✅ add
 });
 
 const base = z.object({
@@ -110,6 +111,7 @@ const base = z.object({
     }),
   ),
   deliveryMethod: z.enum(["pickup", "delivery"]),
+  saveToAddressBook: z.boolean().optional(),
 });
 
 export const createOrderSchema = z.union([

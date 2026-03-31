@@ -1,5 +1,5 @@
 import StatusBadge from "@/components/status";
-import { OrderItems } from "@/types";
+import { OrderItem as OItems } from "@/types";
 import { date } from "@/utils/date";
 import { naira } from "@/utils/naira";
 import Image from "next/image";
@@ -26,22 +26,29 @@ import { useRouter } from "next/navigation";
 //   };
 // };
 
-export default function OrderItem({ item }: { item: OrderItems }) {
+export default function OrderItem({ item }: { item: OItems }) {
   const router = useRouter();
-  const { status, createdAt, orderNumber, title, total, itemCount, imageUrl } =
-    item;
+  const {
+    status,
+    createdAt,
+    orderNumber,
+    total,
+    productTitleSnapshot: title,
+    itemCount,
+    id,
+  } = item;
 
   return (
     <div
-      onClick={() => router.push(`/account/orders/${orderNumber}`)}
+      onClick={() => router.push(`/account/orders/${id}`)}
       className="group relative overflow-hidden rounded-xl border border-slate-200 bg-white p-6 transition-all hover:shadow-md dark:border-slate-800 dark:bg-slate-900/50"
     >
       <div className="flex flex-col gap-2 md:flex-row">
         <div className="h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-800">
           <Image
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-            alt={title}
-            src={imageUrl ?? "/placeholder.svg"}
+            alt={"Order Item"}
+            src={"/placeholder.svg"}
             width={100}
             height={100}
           />
@@ -71,7 +78,7 @@ export default function OrderItem({ item }: { item: OrderItems }) {
 
             <div className="text-right">
               <p className="text-lg font-bold text-slate-900 dark:text-white">
-                {naira(total) ?? "$0.00"}
+                {naira(Number(total))}
               </p>
               <p className="text-xs text-slate-400">
                 {itemCount} {itemCount === 1 ? "Item" : "Items"}

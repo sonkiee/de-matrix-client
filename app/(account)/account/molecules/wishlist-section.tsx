@@ -25,7 +25,7 @@ const WishListSection = ({ activeTab }: { activeTab: string }) => {
             </CardHeader>
             <CardContent>
               <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-                {[...Array(4)].map((_, i) => (
+                {/* {[...Array(4)].map((_, i) => (
                   <div key={i} className="group relative rounded-lg border">
                     <div className="relative aspect-square overflow-hidden">
                       <Image
@@ -72,7 +72,11 @@ const WishListSection = ({ activeTab }: { activeTab: string }) => {
                       </div>
                     </div>
                   </div>
-                ))}
+                ))} */}
+
+                <p className="text-sm text-muted-foreground">
+                  Your wishlist is empty. Start adding items you love!
+                </p>
               </div>
             </CardContent>
           </Card>

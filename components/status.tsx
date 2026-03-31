@@ -1,28 +1,11 @@
-export type OrderStatus =
-  | "active"
-  | "inactive"
-  | "pending"
-  | "paid"
-  | "pending_payment"
-  | "failed_payment"
-  | "processing"
-  | "shipped"
-  | "delivered"
-  | "cancelled"
-  | "refunded"
-  | "initiated"
-  | "success"
-  | "failed"
-  | "refunded"
-  | "converted"
-  | "abandoned"
-  | undefined;
+import { Status } from "@/types";
+import { Badge } from "./ui/badge";
 
 export default function StatusBadge({
   status,
   className,
 }: {
-  status: OrderStatus;
+  status: Status;
   className?: string;
 }) {
   const statusStyles: Record<string, string> = {
@@ -49,10 +32,10 @@ export default function StatusBadge({
     "bg-gray-100 text-gray-700";
 
   return (
-    <span
+    <Badge
       className={`inline-flex rounded-full ${styles} px-2 py-1 text-xs font-medium ${className || ""}`}
     >
       {status}
-    </span>
+    </Badge>
   );
 }

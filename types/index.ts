@@ -57,36 +57,6 @@ export type Product = {
   discount: number;
 };
 
-export interface OrderProduct {
-  id: number;
-  name: string;
-  imageUrl: string;
-  price: number;
-  quantity: number;
-  product: string;
-  variant: string;
-}
-
-export interface Order {
-  id: number;
-  status: string;
-  total: number;
-  totalAmount: number;
-  createdAt: string;
-  products: OrderProduct[];
-}
-
-export interface OrderHistoryProps {
-  loading: boolean;
-  error: Error | null;
-  data: { orders: Order[] };
-}
-
-export interface Category {
-  _id: string;
-  name: string;
-}
-
 export interface Address {
   id: string;
   firstName: string;
@@ -99,18 +69,42 @@ export interface Address {
   country: string;
 }
 
-export type OrderStatus = "processing" | "shipped" | "delivered" | "cancelled";
+export type Status =
+  | "active"
+  | "inactive"
+  | "pending"
+  | "paid"
+  | "pending_payment"
+  | "failed_payment"
+  | "processing"
+  | "shipped"
+  | "delivered"
+  | "cancelled"
+  | "refunded"
+  | "initiated"
+  | "success"
+  | "failed"
+  | "refunded"
+  | "converted"
+  | "abandoned"
+  | undefined;
 
 export type OrderItem = {
   id: string;
-  orderId: string;
-  variantId: string;
-  productTitleSnapshot: string;
-  qty: number;
-  unitPrice: string;
+  orderId?: string;
+  variantId?: string;
+  productTitleSnapshot?: string;
+  qty?: number;
+  unitPrice?: string;
   createdAt: string;
 
-  variantSnapshot: {
+  orderNumber: string;
+
+  total: string;
+
+  status: Status;
+
+  variantSnapshot?: {
     sku: string;
     color: string;
     storage: number;
@@ -118,26 +112,31 @@ export type OrderItem = {
   };
 };
 
-export type OrderItems = {
+export type Order = {
   id: string;
+  userId: string;
   orderNumber: string;
-  status: OrderStatus;
+
+  status: Status;
   deliveryMethod: "pickup" | "delivery";
+
   items: OrderItem[];
+
   subtotal: string;
   total: string;
   shippingFee: string;
   discountTotal: string;
+
   createdAt: string;
   updatedAt: string;
 
   addressId: string | null;
+
   shippingAddressSnapshot?: {
+    address: string;
     city: string;
     state: string;
     phone: string;
     addressLine?: string;
   };
-
-  userId: string;
 };

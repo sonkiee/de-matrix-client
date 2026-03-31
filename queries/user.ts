@@ -13,13 +13,12 @@ export const useFetchUserProfile = () => {
   });
 };
 
-export const useGetAddress = () => {
+export const useGetUserAddress = () => {
   return useQuery({
-    queryKey: ["addresses"],
+    queryKey: ["user-address"],
     queryFn: async () => {
-      const response = await api.get("/user/profile/address");
-      console.log("response from api", response);
-      return response;
+      const response = await api.get("/user/address");
+      return response.data;
     },
   });
 };
