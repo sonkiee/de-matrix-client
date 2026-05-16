@@ -22,9 +22,9 @@ import { ProductVariantSelector } from "../molecules/product-varient-selctor";
 
 export default function ProductPage() {
   const p = useParams();
-  const { id } = p;
+  const { slug } = p;
 
-  const { data, error, isLoading } = useFetchProductById(id as string);
+  const { data, error, isLoading } = useFetchProductById(slug as string);
 
   // This would normally come from a database or API
   const product = data?.data;

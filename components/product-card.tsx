@@ -13,7 +13,7 @@ export default function ProductCard({ product }: { product: Product }) {
   const r = useRouter();
   return (
     <Card
-      onClick={() => r.push(`/product/${product.id}`)}
+      onClick={() => r.push(`/product/${product.slug}`)}
       className="group shadow-none py-0 flex flex-col overflow-hidden rounded-xl border bg-surface-light transition-all duration-300 hover:border-gray-200 hover:shadow-soft dark:bg-surface-dark dark:hover:border-gray-700 "
     >
       {/* Image Section */}

@@ -9,6 +9,7 @@ import { MobileNavLink } from "./mobile-nav-link";
 import Link from "next/link";
 import { FaShoppingBag, FaUser } from "react-icons/fa";
 import { useCartStore } from "@/store/cart";
+import Image from "next/image";
 
 export function SiteHeader({}) {
   const isMobile = useMobile();
@@ -35,7 +36,14 @@ export function SiteHeader({}) {
           href="/"
           className="text-lg font-semibold text-gray-900 dark:text-white"
         >
-          <span className="text-gray-700 dark:text-blue-400">Dematrix</span>
+          {/* <span className="text-gray-700 dark:text-blue-400">Dematrix</span> */}
+          <Image
+            src="/logo-dark-nobg.png"
+            alt="de matrix logo"
+            width={40}
+            height={40}
+            className="h-auto w-auto contain-content"
+          />
         </Link>
 
         {/* Desktop nav */}
