@@ -15,7 +15,7 @@ export default function CartPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <main className="flex-1 px-8 py-2">
+      <main className="flex-1">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Link href="/" className="hover:text-foreground">
             Home
@@ -36,7 +36,7 @@ export default function CartPage() {
               Looks like you haven&apos;t added anything to your cart yet.
             </p>
             <Button asChild className="mt-4">
-              <Link href="/">Continue Shopping</Link>
+              <Link href="/store">Continue Shopping</Link>
             </Button>
           </div>
         ) : (

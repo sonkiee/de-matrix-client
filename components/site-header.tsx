@@ -20,11 +20,11 @@ export function SiteHeader({}) {
 
   const navLinks = [
     // { label: "Store", href: "/store" },
-    { label: "Smartphone", href: "/products/smartphone" },
-    { label: "iPhone", href: "/products/iphone" },
-    { label: "Samsung", href: "/products/samsung" },
-    { label: "iPad", href: "/products/ipad" },
-    { label: "Accessories", href: "/products/accessories" },
+    { label: "Store", href: "/store" },
+    { label: "iPhone", href: "/category/iphone" },
+    { label: "Samsung", href: "/category/samsung" },
+    { label: "iPad", href: "/category/ipad" },
+    { label: "Accessories", href: "/category/accessories" },
     { label: "Repairs", href: "/services/repairs" },
   ];
 

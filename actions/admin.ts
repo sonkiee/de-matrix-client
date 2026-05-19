@@ -1,5 +1,5 @@
 import { actionClient } from "@/lib/safe-action";
-import { createProductSchema } from "@/schema";
+import { createProductSchema, inviteAdminSchema } from "@/schema";
 import { api } from "@/lib/axios";
 
 export const createProduct = actionClient
@@ -20,5 +20,12 @@ export const createProduct = actionClient
         "Content-Type": "multipart/form-data",
       },
     });
+    return response.data;
+  });
+
+export const inviteAdmin = actionClient
+  .inputSchema(inviteAdminSchema)
+  .action(async ({ parsedInput: { email } }) => {
+    const response = await api.post("/admin/promote", { email });
     return response.data;
   });

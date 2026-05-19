@@ -74,7 +74,8 @@ export default function ProductListingPage() {
 
   return (
     <div className="min-h-screen">
-      <main className="mx-auto w-full px-4 py-6 sm:px-6 lg:px-8">
+      {/* <main className="mx-auto w-full px-4 py-6 sm:px-6 lg:px-8"> */}
+      <main className="flex-1">
         {/* Breadcrumb */}
         <Breadcrumb />
 
@@ -88,7 +89,7 @@ export default function ProductListingPage() {
           </p>
         </div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[200px_1fr]">
+        <div className="mt-8 grid gap-8 lg:grid-cols-[250px_1fr]">
           {/* Sidebar */}
           <aside className="lg:sticky lg:top-10 lg:self-start">
             <Filter filter={filter} setFilter={setFilter} />

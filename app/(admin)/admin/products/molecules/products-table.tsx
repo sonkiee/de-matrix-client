@@ -45,6 +45,7 @@ export default function ProductsTable() {
               price?: number;
               inStock?: boolean;
               isActive?: boolean;
+              slug?: string;
             }) => (
               <TableRow key={product.id}>
                 <TableCell className="px-6 py-4 font-medium text-gray-900">
@@ -64,7 +65,7 @@ export default function ProductsTable() {
                 </TableCell>
                 <TableCell>
                   <Link
-                    href={`/admin/products/${product.id}`}
+                    href={`/admin/products/${product.slug}`}
                     className={buttonVariants({
                       variant: "default",
                       size: "sm",

@@ -1,6 +1,26 @@
+"use client";
+
+import Spinner from "@/components/spinner";
+import { useFetchProductById } from "@/queries";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 
 export default function AdminProductDetailsPage() {
+  const slug = useParams()?.slug;
+  console.log("slug", slug);
+
+  const { data, error, isLoading } = useFetchProductById(slug as string);
+  console.log("data", data);
+  const details = data?.data;
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <Spinner />
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-6xl mx-auto py-8 px-6 space-y-8">
       {/* Header */}
@@ -27,7 +47,7 @@ export default function AdminProductDetailsPage() {
           <Image
             width={100}
             height={100}
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE0mm7aRVqGguA5PndWv8phKD4U7NjhGbkuIHX8DiIOR8h4gybDYhjJAcl0FJ9fbH0GbbiH5DaaWcOKtGy63BD7VJpQWkRwrhfBguw5cIYfU3_VJ4EVWEHVzGrG0nCc1grhsTXud-bC0qu0AbQekhcmgtPrW9O4eBegYK3m0Qj_rPgeY1CZG7NJ_Fux14jXlPMzBfPxugxgjGIJQKDHrFhuQhUfLcBazBMSLoXr2uEgZB0mm4gh1-2_RgMArqDwxtLar_sCoBXcBnS"
+            src={details?.images?.[0]?.url || "/placeholder.svg"}
             alt="Product"
             className="w-full rounded-lg aspect-square object-cover"
           />
@@ -41,11 +61,11 @@ export default function AdminProductDetailsPage() {
             </span>
 
             <h1 className="text-3xl font-bold mt-2">
-              Premium Wireless Noise-Cancelling Headphones
+              {details?.title || "Premium Wireless Noise-Cancelling Headphones"}
             </h1>
 
             <p className="text-sm text-gray-500 uppercase mt-1">
-              SKU: WH-1000XM5-BLK
+              SKU: {details?.sku || "WH-1000XM5-BLK"}
             </p>
           </div>
 

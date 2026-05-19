@@ -129,6 +129,10 @@ export const initPaymentSchema = z.object({
   orderId: z.string().min(1, "Order ID is required"),
 });
 
+export const inviteAdminSchema = z.object({
+  email: z.email("Invalid email address").min(1, "Email is required"),
+});
+
 export const profileSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
@@ -145,6 +149,8 @@ export const updatePasswordSchema = z.object({
 
 export type ProfileData = z.infer<typeof profileSchema>;
 export type UpdatePasswordData = z.infer<typeof updatePasswordSchema>;
+
+export type InviteAdminData = z.infer<typeof inviteAdminSchema>;
 
 export type CreateProductData = z.input<typeof createProductSchema>;
 export type ProductVariantData = z.infer<typeof productVariantSchema>;

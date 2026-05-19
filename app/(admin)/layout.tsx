@@ -11,7 +11,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <div className="md:hidden">
         <PcOnly />
       </div>
-      <div className="flex h-screen">
+      <div className="flex flex-row h-screen">
         <AdminSidebar />
         <div className="flex flex-col flex-1">
           <AdminHeader />

@@ -41,7 +41,7 @@ export default function ProductPage() {
   return (
     <div className="flex min-h-screen flex-col">
       {product && (
-        <main className="flex-1 px-8 py-2">
+        <main className="flex-1">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-foreground">
               Home

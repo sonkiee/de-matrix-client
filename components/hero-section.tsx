@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import hero from "../assets/images/hero.png";
+import hero2 from "../assets/images/hero2.jpg";
 
 export function HeroSection() {
   return (
@@ -32,18 +33,20 @@ export function HeroSection() {
       </div>
 
       {/* Hero Image Box */}
-      <div className="relative mx-auto mt-12 w-full max-w-4xl overflow-hidden rounded-3xl ring-1 ring-black/5 bg-gradient-to-b from-gray-100 to-gray-200">
+      {/* <div className="relative mx-auto mt-12 w-full max-w-4xl overflow-hidden rounded-3xl ring-1 ring-black/5 bg-linear-to-b from-gray-100 to-gray-200"> */}
+
+      <div className="relative mx-auto mt-12 w-full max-w-4xl h-[600px] overflow-hidden rounded-3xl ring-1 ring-black/5 bg-linear-to-b from-gray-100 to-gray-200">
         {/* subtle glow */}
         <div className="pointer-events-none absolute -top-20 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-white/60 blur-3xl" />
 
-        <div className="relative flex items-center justify-center px-6 py-10">
+        <div className="relative flex items-center justify-center ">
           <Image
-            src={hero}
+            src={hero2}
             alt="Gadgets"
-            width={900}
+            width={600}
             height={600}
             priority
-            className="w-full max-w-3xl object-contain"
+            className="w-full object-contain"
           />
         </div>
       </div>

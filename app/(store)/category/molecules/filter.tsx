@@ -19,7 +19,7 @@ export default function Filter({
   const slug = params.category as string;
   console.log("Filter slug:", slug);
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 bg-white p-4 rounded-md">
       <div className="flex items-center justify-between lg:hidden">
         <h2 className="font-semibold">Filters</h2>
         <FilterMobile {...{ filter, setFilter }} slug={slug} />
